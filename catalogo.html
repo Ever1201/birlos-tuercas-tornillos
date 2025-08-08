@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catálogo - Birlos, Tuercas y Tornillos Durán</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 text-gray-800 font-[Montserrat]">
+
+  <!-- Header -->
+  <header id="header" class="bg-gray-900 text-white fixed w-full z-50 shadow-lg transition-all">
+    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+      <div class="h-16">
+        <img src="img/logo.png" alt="Birlos, Tuercas y Tornillos Durán" class="h-full object-contain" />
+      </div>
+      <nav class="space-x-6 hidden md:block">
+        <a href="index.html" class="hover:text-yellow-400 transition">Inicio</a>
+        <a href="#productos" class="hover:text-yellow-400 transition">Productos</a>
+        <a href="#contacto" class="hover:text-yellow-400 transition">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="pt-28 max-w-7xl mx-auto px-4">
+    <h1 class="text-3xl font-bold mb-8 text-center">Catálogo</h1>
+
+    <!-- Botones de categorías -->
+    <div class="flex justify-center gap-4 mb-10 flex-wrap">
+      <button onclick="mostrarProducto('birlo')" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition duration-150 ease-in-out">Birlos</button>
+      <button onclick="mostrarProducto('tuerca')" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition duration-150 ease-in-out">Tuercas</button>
+      <button onclick="mostrarProducto('tornillo')" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition duration-150 ease-in-out">Tornillos</button>
+      <button onclick="mostrarProducto('arandela')" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 transition duration-150 ease-in-out">Arandela</button>
+    </div>
+
+    <!-- Contenedor de producto -->
+    <div id="producto" class="hidden bg-white shadow-lg rounded-lg p-6 text-center">
+      <img id="producto-img" src="" alt="" class="mx-auto mb-4 h-64 object-contain max-w-full" />
+      <h2 id="producto-nombre" class="text-2xl font-semibold mb-6"></h2>
+
+      <!-- Grid modelos -->
+      <div id="producto-modelos" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white text-center py-6 mt-10">
+    <p>&copy; 2025 Birlos, Tuercas y Tornillos Durán. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/catalogo.js"></script>
+</body>
+</html>

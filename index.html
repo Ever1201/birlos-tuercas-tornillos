@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birlos, Tuercas y Tornillos Durán</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">  
+</head>
+<body class="bg-gray-50 text-gray-800 font-[Montserrat]">
+
+  <!-- Header -->
+  <header id="header" class="bg-gray-900 text-white fixed w-full z-50 shadow-lg transition-all">
+  <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+    <!-- Logo en lugar del texto -->
+    <div class="h-16 bg-gray-700 flex items-center justify-center" style="border-radius: 50%;">
+      <img src="img/logo.png" alt="Birlos, Tuercas y Tornillos Durán" class="h-full object-contain" />
+    </div>
+    <nav class="space-x-6 hidden md:block">
+      <a href="#inicio" class="hover:text-yellow-400 transition">Inicio</a>
+      <a href="#productos" class="hover:text-yellow-400 transition">Productos</a>
+      <a href="#contacto" class="hover:text-yellow-400 transition">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Hero -->
+  <section id="inicio" class="bg-black relative bg-cover bg-center h-screen flex items-center justify-center text-center" style="background-image: url('img/hero.jpg'); background-repeat: no-repeat;">
+    <div class="bg-white bg-opacity-80 p-8 rounded-lg fade-in-up">
+      <h1 class="text-4xl md:text-6xl font-bold text-black mb-4">Fuerza y Precisión en Cada Pieza</h1>
+      <p class="text-lg md:text-xl text-black-200 mb-6">Especialistas en birlos, tuercas y tornillos para la industria y el automovilismo en Ciudad Juárez.</p>
+      <a href="#productos" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg font-semibold transition transform hover:scale-105 hover:shadow-lg">Ver Catálogo</a>
+    </div>
+  </section>
+
+  <!-- Productos -->
+  <section id="productos" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-10">Productos Destacados</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <a href="catalogo.html">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition">
+          <img src="img/birlo.png" alt="Birlo de seguridad" class="w-full h-56 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Birlos</h3>
+            <p class="text-gray-600">Alta resistencia y seguridad para tu vehículo.</p>
+          </div>
+        </div>
+        </a>
+
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition">
+          <img src="img/tuerca.png" alt="Tuerca industrial" class="w-full h-56 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Tuercas</h3>
+            <p class="text-gray-600">Variedad en medidas y materiales.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition">
+          <img src="img/tornillo.png" alt="Tornillo galvanizado" class="w-full h-56 object-cover" width=auto height=auto>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Tornillos</h3>
+            <p class="text-gray-600">Durabilidad garantizada para cualquier proyecto.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="py-16 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-10">Contáctanos</h2>
+      <div class="grid md:grid-cols-1 gap-8">
+        
+        <form id="contactForm" class="bg-white rounded-lg shadow-lg p-6 space-y-4 transform hover:shadow-xl transition">
+          <input type="text" placeholder="Nombre" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-yellow-500 transition" required>
+          <input type="email" placeholder="Correo electrónico" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-yellow-500 transition" required>
+          <textarea placeholder="Mensaje" rows="4" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-yellow-500 transition" required></textarea>
+          <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg font-semibold transition transform hover:scale-105 hover:shadow-lg">Enviar</button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+    <!-- Ubicación -->
+  <section id="contacto" class="py-16 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-10">Ubicanos</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition" style="background-image: url(img/local.jpg); background-size: cover; background-position: center;">
+          <div class="p-6 bg-black bg-opacity-50">
+            <h3 class="text-xl font-semibold text-white mb-2">Nuestra Sucursal</h3>
+            <p class="text-gray-200">Visítanos en nuestra unica tienda ubicada en Ciudad Juárez, Chihuahua.</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden rounded-lg shadow-lg">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4859.37102201507!2d-106.39037396125765!3d31.65177755975833!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e75dc9dc846163%3A0x476b53464b418c3f!2sBirlos%20Tuercas%20y%20Tornillos!5e1!3m2!1ses-419!2smx!4v1754667944000!5m2!1ses-419!2smx" class="w-full h-full min-h-[300px]" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white text-center py-6">
+    <p>&copy; 2025 Birlos, Tuercas y Tornillos Durán. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
