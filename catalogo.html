@@ -3,277 +3,432 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo - Birlos, Tuercas y Tornillos Durán</title>
-  <meta name="description" content="Explora nuestro catálogo completo de tornillería industrial y automotriz. Encuentra birlos, tuercas, tornillos y más productos de alta calidad.">
+  <title>Catálogo de Productos - Birlos, Tuercas y Tornillos Durán</title>
+  <meta name="description" content="Explora nuestro catálogo completo de birlos, tuercas y tornillos para todas tus necesidades industriales y automotrices.">
   
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Icons -->
-  <script src="https://kit.fontawesome.com/4a8f1a4e6a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
   
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   
+  <!-- AOS - Animate On Scroll -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Montserrat', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
   <style>
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    [x-cloak] { display: none !important; }
+    
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
-    .animate-fade-in-up {
-      animation: fadeInUp 0.5s ease-out forwards;
+    
+    .text-shadow-lg {
+      text-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-
-    .animation-delay-200 { animation-delay: 200ms; }
-    .animation-delay-400 { animation-delay: 400ms; }
-    .animation-delay-600 { animation-delay: 600ms; }
   </style>
 </head>
-<body class="bg-neutral-100 text-neutral-800 font-sans" x-data="catalog()">
-
+<body class="bg-gray-50" x-data="{ isOpen: false, activeFilter: 'todos' }" x-cloak>
   <!-- Header -->
-  <header x-data="{ mobileMenuOpen: false }" class="bg-blue-900 text-white fixed w-full z-50 shadow-lg transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-20">
-        <!-- Logo -->
-        <div class="flex-shrink-0">
-          <a href="index.html" class="h-16 transition-all flex items-center">
-            <img src="img/logo.png" alt="Birlos, Tuercas y Tornillos Durán" class="h-12 object-contain">
-          </a>
-        </div>
-        <!-- Navegación Desktop -->
-        <nav class="hidden md:flex items-center space-x-8">
-          <a href="index.html" class="text-white/80 hover:text-white transition-colors duration-300">Inicio</a>
-          <a href="catalogo.html" class="text-yellow-400 font-bold">Catálogo</a>
-          <a href="index.html#contacto" class="text-white/80 hover:text-white transition-colors duration-300">Contacto</a>
-        </nav>
-        <!-- Botón Menú Móvil -->
-        <div class="md:hidden flex items-center">
-          <button @click="mobileMenuOpen = !mobileMenuOpen" 
-                  class="inline-flex items-center justify-center p-2 rounded-md text-white/60 
-                         hover:text-white hover:bg-white/10 focus:outline-none">
-            <i :class="mobileMenuOpen ? 'fas fa-times' : 'fas fa-bars'" class="text-xl"></i>
-          </button>
+  <header class="bg-white fixed w-full z-50 transition-all duration-300">
+    <!-- Contenido principal del header -->
+    <div class="border-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Logo -->
+          <div class="flex-shrink-0">
+            <a href="index.html" class="flex items-center">
+              <img src="img/logo_rey.png" alt="Logo" class="h-20 w-auto">
+              <span class="ml-3 text-xl font-bold text-blue-900"></span>
+            </a>
+          </div>
+
+          <!-- Navegación Desktop -->
+          <nav class="hidden md:flex items-center space-x-8">
+            <a href="index.html#inicio" class="text-gray-700 hover:text-blue-900 transition-colors duration-300">Inicio</a>
+            <a href="index.html#productos" class="text-gray-700 hover:text-blue-900 transition-colors duration-300">Productos</a>
+            <a href="index.html#servicios" class="text-gray-700 hover:text-blue-900 transition-colors duration-300">Servicios</a>
+            <a href="index.html#contacto" class="text-gray-700 hover:text-blue-900 transition-colors duration-300">Contacto</a>
+          </nav>
+
+          <!-- Botón Menú Móvil -->
+          <div class="md:hidden">
+            <button @click="isOpen = !isOpen" 
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 
+                           hover:text-blue-900 hover:bg-gray-100 focus:outline-none">
+              <i :class="isOpen ? 'fas fa-times' : 'fas fa-bars'" class="text-xl"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
+
     <!-- Menú Móvil -->
-    <div x-show="mobileMenuOpen" 
-         @click.away="mobileMenuOpen = false" 
-         x-transition 
-         class="md:hidden bg-blue-800">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a href="index.html" class="block px-3 py-2 rounded-md text-base text-white/80 hover:text-white hover:bg-white/10 transition-colors">Inicio</a>
-        <a href="catalogo.html" class="block px-3 py-2 rounded-md text-base text-yellow-400 bg-yellow-400/10 font-bold">Catálogo</a>
-        <a href="index.html#contacto" class="block px-3 py-2 rounded-md text-base text-white/80 hover:text-white hover:bg-white/10 transition-colors">Contacto</a>
+    <div x-show="isOpen" 
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 -translate-y-4"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 -translate-y-4"
+         class="md:hidden bg-white border-t border-gray-200">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="index.html#inicio" 
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-900 hover:bg-gray-50">
+          Inicio
+        </a>
+        <a href="index.html#productos" 
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-900 hover:bg-gray-50">
+          Productos
+        </a>
+        <a href="index.html#servicios" 
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-900 hover:bg-gray-50">
+          Servicios
+        </a>
+        <a href="index.html#contacto" 
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-900 hover:bg-gray-50">
+          Contacto
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- Contenido Principal del Catálogo -->
-  <main class="min-h-screen bg-gradient-to-b from-blue-900 via-blue-800 to-blue-900 pt-28 pb-20">
-    <!-- Patrón de puntos decorativo -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle,_#ffffff08_1px,_transparent_1px)] bg-[length:32px_32px]"></div>
+  <!-- Hero Catálogo -->
+  <section class="relative pt-32 pb-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+    <!-- Patrón de fondo -->
+    <div class="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-      <!-- Encabezado -->
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center px-4 py-2 rounded-full bg-yellow-400/10 text-yellow-400 text-sm 
-                    font-semibold mb-4 border border-yellow-400/20 animate-fade-in-up">
-          <i class="fas fa-box-open mr-2"></i>
-          Catálogo Completo
-        </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in-up animation-delay-200">
-          Encuentra la Pieza Perfecta
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 text-shadow-lg">
+          Catálogo de Productos
         </h1>
-        <p class="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-400">
-          Explora nuestra extensa colección de productos de alta calidad para la industria y el sector automotriz.
+        <p class="text-xl text-white/80 max-w-3xl mx-auto mb-8">
+          Explora nuestra amplia selección de productos de alta calidad para todas tus necesidades.
         </p>
       </div>
+    </div>
+  </section>
 
-      <!-- Barra de Filtros -->
-      <div class="sticky top-24 z-40 mb-12 animate-fade-in-up animation-delay-600">
-        <div class="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-6
-                    border border-white/10 shadow-lg">
-          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Búsqueda por texto -->
-            <div class="space-y-2">
-              <label for="search" class="flex items-center text-sm font-semibold text-white">
-                <i class="fas fa-search text-yellow-400 mr-2"></i>
-                Buscar Producto
-              </label>
-              <div class="relative">
-                <input type="text" 
-                       id="search" 
-                       x-model="searchTerm" 
-                       @input.debounce.300ms="filterProducts" 
-                       placeholder="Ej: Tornillo hexagonal..." 
-                       class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 pl-10 text-white placeholder-white/30 
-                              focus:outline-none focus:border-yellow-400/50 transition-colors">
-                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-white/30"></i>
-              </div>
-            </div>
+  <!-- Filtros -->
+  <section class="sticky top-20 bg-white shadow-md z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-nowrap overflow-x-auto gap-4 no-scrollbar">
+        <button @click="activeFilter = 'todos'"
+                :class="{'bg-blue-900 text-white': activeFilter === 'todos', 'bg-gray-100 text-gray-700': activeFilter !== 'todos'}"
+                class="px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-blue-800 hover:text-white transition-colors">
+          Todos los Productos
+        </button>
+        <button @click="activeFilter = 'birlos'"
+                :class="{'bg-blue-900 text-white': activeFilter === 'birlos', 'bg-gray-100 text-gray-700': activeFilter !== 'birlos'}"
+                class="px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-blue-800 hover:text-white transition-colors">
+          Birlos
+        </button>
+        <button @click="activeFilter = 'tuercas'"
+                :class="{'bg-blue-900 text-white': activeFilter === 'tuercas', 'bg-gray-100 text-gray-700': activeFilter !== 'tuercas'}"
+                class="px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-blue-800 hover:text-white transition-colors">
+          Tuercas
+        </button>
+        <button @click="activeFilter = 'tornillos'"
+                :class="{'bg-blue-900 text-white': activeFilter === 'tornillos', 'bg-gray-100 text-gray-700': activeFilter !== 'tornillos'}"
+                class="px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-blue-800 hover:text-white transition-colors">
+          Tornillos
+        </button>
+        <button @click="activeFilter = 'arandelas'"
+                :class="{'bg-blue-900 text-white': activeFilter === 'arandelas', 'bg-gray-100 text-gray-700': activeFilter !== 'arandelas'}"
+                class="px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-blue-800 hover:text-white transition-colors">
+          Arandelas
+        </button>
+      </div>
+    </div>
+  </section>
 
-            <!-- Filtro por categoría -->
-            <div class="space-y-2">
-              <label for="category" class="flex items-center text-sm font-semibold text-white">
-                <i class="fas fa-filter text-yellow-400 mr-2"></i>
-                Categoría
-              </label>
-              <div class="relative">
-                <select id="category" 
-                        x-model="selectedCategory" 
-                        @change="filterProducts" 
-                        class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 pr-10 text-white
-                               appearance-none focus:outline-none focus:border-yellow-400/50 transition-colors">
-                  <option value="all">Todas las categorías</option>
-                  <template x-for="category in categories" :key="category.id">
-                    <option :value="category.id" x-text="category.name"></option>
-                  </template>
-                </select>
-                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none"></i>
-              </div>
-            </div>
-
-            <!-- Ordenar por -->
-            <div class="space-y-2">
-              <label for="sort" class="flex items-center text-sm font-semibold text-white">
-                <i class="fas fa-sort-amount-down text-yellow-400 mr-2"></i>
-                Ordenar por
-              </label>
-              <div class="relative">
-                <select id="sort" 
-                        x-model="sortBy" 
-                        @change="sortProducts" 
-                        class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 pr-10 text-white
-                               appearance-none focus:outline-none focus:border-yellow-400/50 transition-colors">
-                  <option value="name-asc">Nombre (A-Z)</option>
-                  <option value="name-desc">Nombre (Z-A)</option>
-                  <option value="code-asc">Código (Ascendente)</option>
-                  <option value="code-desc">Código (Descendente)</option>
-                </select>
-                <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none"></i>
-              </div>
-            </div>
-
-            <!-- Conteo de resultados -->
-            <div class="flex items-end">
-              <div class="w-full p-4 rounded-xl bg-white/5 border border-white/10">
-                <div class="flex items-center justify-between">
-                  <span class="text-white/60">Productos encontrados:</span>
-                  <span class="text-white font-bold">
-                    <span x-text="filteredProducts.length" class="text-yellow-400"></span>
-                    <span class="text-white/60">de</span>
-                    <span x-text="products.length"></span>
-                  </span>
-                </div>
-              </div>
-            </div>
+  <!-- Catálogo -->
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Grid de Productos -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+        <!-- Tarjetas generadas para cada imagen -->
+        <div x-show="activeFilter === 'todos' || activeFilter === 'arandelas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/arandela.png" alt="Arandela" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Arandela</h3>
+            <p class="text-gray-600 text-sm mb-4">Arandela estándar para aplicaciones generales.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'arandelas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/arandela_automotriz.png" alt="Arandela Automotriz" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Arandela Automotriz</h3>
+            <p class="text-gray-600 text-sm mb-4">Especial para uso automotriz.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'arandelas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/arandela_plana.png" alt="Arandela Plana" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Arandela Plana</h3>
+            <p class="text-gray-600 text-sm mb-4">Para distribución uniforme de carga.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'arandelas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/Arandela_presion.png" alt="Arandela de Presión" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Arandela de Presión</h3>
+            <p class="text-gray-600 text-sm mb-4">Previene el aflojamiento por vibración.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'birlos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/birlo.png" alt="Birlo" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Birlo</h3>
+            <p class="text-gray-600 text-sm mb-4">Birlo de alta resistencia para ruedas.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tornillo.png" alt="Tornillo" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo</h3>
+            <p class="text-gray-600 text-sm mb-4">Tornillo estándar para múltiples aplicaciones.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tornillometal.png" alt="Tornillo para Metal" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo para Metal</h3>
+            <p class="text-gray-600 text-sm mb-4">Especial para fijaciones en metal.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tornillo_boton.png" alt="Tornillo Botón" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo Botón</h3>
+            <p class="text-gray-600 text-sm mb-4">Cabeza redonda para acabados estéticos.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tornillo_buscarosca.png" alt="Tornillo Buscarosca" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo Buscarosca</h3>
+            <p class="text-gray-600 text-sm mb-4">Para aplicaciones automotrices y generales.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tornillo_coche.png" alt="Tornillo Coche" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo Coche</h3>
+            <p class="text-gray-600 text-sm mb-4">Especial para fijaciones en automóviles.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/Tornillo_flat.png" alt="Tornillo Flat" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo Flat</h3>
+            <p class="text-gray-600 text-sm mb-4">Cabeza plana para acabados al ras.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tornillo_hexagonal1.png" alt="Tornillo Hexagonal 1" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo Hexagonal 1</h3>
+            <p class="text-gray-600 text-sm mb-4">Cabeza hexagonal para mayor torque.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tornillo_pija.png" alt="Tornillo Pija" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo Pija</h3>
+            <p class="text-gray-600 text-sm mb-4">Autoperforante para madera y metal.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tornillo_puntabroca.png" alt="Tornillo Punta Broca" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo Punta Broca</h3>
+            <p class="text-gray-600 text-sm mb-4">Autoperforante para lámina y metal.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tornillos'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tornillo_socket.png" alt="Tornillo Socket" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tornillo Socket</h3>
+            <p class="text-gray-600 text-sm mb-4">Cabeza tipo Allen para aplicaciones industriales.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tuercas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tuercabirlo.png" alt="Tuerca Birlo" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tuerca Birlo</h3>
+            <p class="text-gray-600 text-sm mb-4">Tuerca especial para birlos de seguridad.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tuercas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tuercalujoalta.png" alt="Tuerca de Lujo Alta" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tuerca de Lujo Alta</h3>
+            <p class="text-gray-600 text-sm mb-4">Acabado premium para autos de lujo.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tuercas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/Tuercas-Castillo.png" alt="Tuercas Castillo" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tuercas Castillo</h3>
+            <p class="text-gray-600 text-sm mb-4">Con ranuras para pasador de seguridad.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tuercas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/Tuerca_alta.png" alt="Tuerca Alta" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tuerca Alta</h3>
+            <p class="text-gray-600 text-sm mb-4">Para aplicaciones que requieren mayor altura.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tuercas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tuerca_corta.png" alt="Tuerca Corta" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tuerca Corta</h3>
+            <p class="text-gray-600 text-sm mb-4">Para espacios reducidos y aplicaciones especiales.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tuercas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tuerca_hexagonal.png" alt="Tuerca Hexagonal" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tuerca Hexagonal</h3>
+            <p class="text-gray-600 text-sm mb-4">Forma estándar para múltiples usos.</p>
+          </div>
+        </div>
+        <div x-show="activeFilter === 'todos' || activeFilter === 'tuercas'" class="bg-white rounded-2xl shadow-lg overflow-hidden group" data-aos="fade-up">
+          <div class="relative aspect-w-4 aspect-h-3">
+            <img src="img/Catalogo/tuerca_seguridad.png" alt="Tuerca de Seguridad" class="w-full h-full object-contain p-6">
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Tuerca de Seguridad</h3>
+            <p class="text-gray-600 text-sm mb-4">Sistema anti-robo para máxima protección.</p>
           </div>
         </div>
       </div>
-
-      <!-- Grid de Productos -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        <template x-if="filteredProducts.length === 0">
-          <div class="col-span-full py-20 text-center">
-            <div class="inline-flex flex-col items-center p-8 rounded-2xl bg-white/5 border border-white/10">
-              <i class="fas fa-box-open text-6xl text-yellow-400 mb-4"></i>
-              <h3 class="text-2xl font-bold text-white mb-2">No se encontraron productos</h3>
-              <p class="text-white/60">Intenta ajustar tus filtros de búsqueda</p>
-              <button @click="resetFilters" 
-                      class="mt-6 px-6 py-3 bg-white/10 text-white rounded-xl border border-white/20 
-                             hover:bg-white/20 transition-colors">
-                <i class="fas fa-redo-alt mr-2"></i>
-                Reiniciar filtros
-              </button>
-            </div>
-          </div>
-        </template>
-
-        <template x-for="product in filteredProducts" :key="product.id">
-          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/10 to-white/5 
-                      backdrop-blur-sm group hover:scale-[1.02] transition-all duration-300
-                      border border-white/10 hover:border-yellow-400/30 shadow-lg">
-            <!-- Decoración de fondo -->
-            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-400/20 to-transparent 
-                        rounded-full -mr-16 -mt-16 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-            
-            <!-- Imagen del producto -->
-            <div class="relative p-6">
-              <div class="aspect-square rounded-xl bg-white/5 p-6 backdrop-blur-sm
-                         border border-white/10 group-hover:border-yellow-400/30 transition-colors
-                         flex items-center justify-center overflow-hidden">
-                <img :src="product.image" 
-                     :alt="product.name" 
-                     class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500
-                            drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-              </div>
-            </div>
-
-            <!-- Información del producto -->
-            <div class="p-6 space-y-4">
-              <!-- Categoría -->
-              <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
-                          bg-yellow-400/10 text-yellow-400 border border-yellow-400/20">
-                <i class="fas fa-tag mr-1"></i>
-                <span x-text="getCategoryName(product.category)"></span>
-              </div>
-
-              <!-- Detalles -->
-              <div>
-                <h3 class="text-xl font-bold text-white group-hover:text-yellow-400 transition-colors" 
-                    x-text="product.name"></h3>
-                <p class="text-white/60 mt-1" x-text="product.code"></p>
-              </div>
-
-              <!-- Especificaciones -->
-              <div class="space-y-2 pt-4 border-t border-white/10">
-                <template x-for="(value, key) in product.specifications" :key="key">
-                  <div class="flex items-center text-sm">
-                    <span class="text-white/40 capitalize" x-text="key + ':'"></span>
-                    <span class="ml-2 text-white" x-text="value"></span>
-                  </div>
-                </template>
-              </div>
-
-              <!-- Botón de acción -->
-              <div class="pt-4">
-                <a href="index.html#contacto" 
-                   class="flex items-center justify-center w-full px-6 py-3 bg-white/10 text-white rounded-xl
-                          border border-white/10 hover:bg-white/20 hover:border-yellow-400/30
-                          transition-all duration-300 group/btn">
-                  <i class="fas fa-comment-dots mr-2 group-hover/btn:animate-bounce"></i>
-                  <span>Solicitar Cotización</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </template>
-      </div>
     </div>
-  </main>
+  </section>
 
   <!-- Footer -->
-  <footer class="bg-blue-900 text-white/60 text-center py-8 mt-20">
-    <div class="flex justify-center space-x-6 mb-4">
-      <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-facebook-f text-xl"></i></a>
-      <a href="#" class="hover:text-yellow-400 transition"><i class="fab fa-whatsapp text-xl"></i></a>
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-12 mb-8">
+        <!-- Columna 1 -->
+        <div>
+          <img src="img/logo.png" alt="Logo" class="h-20 mb-4">
+          <p class="text-gray-400">
+            Más de 25 años ofreciendo soluciones de calidad en tornillería industrial y automotriz.
+          </p>
+        </div>
+        
+        <!-- Columna 2 -->
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#inicio" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
+            <li><a href="index.html#productos" class="text-gray-400 hover:text-white transition-colors">Productos</a></li>
+            <li><a href="index.html#servicios" class="text-gray-400 hover:text-white transition-colors">Servicios</a></li>
+            <li><a href="index.html#contacto" class="text-gray-400 hover:text-white transition-colors">Contacto</a></li>
+          </ul>
+        </div>
+        
+        <!-- Columna 3 -->
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Contáctanos</h4>
+          <div class="space-y-4">
+            <p class="text-gray-400">
+              <i class="fas fa-phone mr-2"></i> +52 (656) 123-4567
+            </p>
+            <p class="text-gray-400">
+              <i class="fas fa-envelope mr-2"></i> ventas@tornillosduran.com
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400">&copy; 2025 Birlos, Tuercas y Tornillos Durán. Todos los derechos reservados.</p>
+      </div>
     </div>
-    <p>&copy; 2025 Birlos, Tuercas y Tornillos Durán. Todos los derechos reservados.</p>
-    <p class="text-sm text-white/40 mt-1">Diseño por Ever</p>
   </footer>
 
-  <script src="js/catalogo.js"></script>
+  <script>
+    // Inicializar AOS
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100
+    });
+    
+    // Manejar el scroll para el header
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 0) {
+        header.classList.add('shadow-lg');
+      } else {
+        header.classList.remove('shadow-lg');
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,127 +1,110 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birlos, Tuercas y Tornillos Durán              <div class="product-              <div class="product-image-container">
-                <img src="img/arandela.png" alt="Arandelas" class="w-full h-full object-contain">
-              </div>
-              <div class="absolute bottom-4 left-4 right-4 bg-brand-blue-dark/90 p-4 rounded-lg backdrop-blur-sm">
-                <h3 class="text-xl font-bold text-white mb-1">Arandelas</h3>
-                <p class="text-neutral-200 text-sm">Distribución uniforme de presión</p>
-              </div>container">
-                <img src="img/tornillometal.png" alt="Tornillos" class="w-full h-full object-contain">
-              </div>
-              <div class="absolute bottom-4 left-4 right-4 bg-brand-blue-dark/90 p-4 rounded-lg backdrop-blur-sm">
-                <h3 class="text-xl font-bold text-white mb-1">Tornillos</h3>
-                <p class="text-neutral-200 text-sm">Resistencia y durabilidad</p>
-              </div>idad y Servicio en Ciudad Juárez</title>
-  <meta name="description" content="Líderes en la venta de birlos, tuercas, tornillos y tornillería especializada para la industria y el sector automotriz en Ciudad Juárez.">
+  <title>Birlos, Tuercas y Tornillos Durán - Calidad y Servicio</title>
+  <meta name="description" content="Expertos en birlos, tuercas y tornillos para todas tus necesidades industriales y automotrices. Calidad y servicio garantizado.">
   
-  <!-- Tailwind CSS & Custom Config -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="tailwind.config.js"></script>
-
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+  
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <!-- AOS - Animate On Scroll -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   
-  <!-- Custom CSS -->
-  <link href="css/style.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Montserrat', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    [x-cloak] { display: none !important; }
+    
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .text-shadow-lg {
+      text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+  </style>
 </head>
-<body class="bg-neutral-50 text-neutral-800 font-sans">
-
+<body class="bg-gray-50" x-data="{ isOpen: false }" x-cloak>
   <!-- Header -->
-  <header x-data="{ isOpen: false, isScrolled: false }" 
-         @scroll.window="isScrolled = window.pageYOffset > 20"
-         :class="{ 'py-2': isScrolled, 'py-4': !isScrolled }"
-         class="fixed w-full z-50 transition-all duration-300">
-    <!-- Backdrop blur y sombra -->
-    <div :class="{ 'opacity-95': isScrolled, 'opacity-90': !isScrolled }"
-         class="absolute inset-0 bg-gradient-to-r from-brand-blue-900 via-brand-blue-800 to-brand-blue-900 backdrop-blur-sm shadow-lg -z-10"></div>
-
+  <header class="bg-white fixed w-full z-50 transition-all duration-300">
+    <!-- Contenido principal del header -->
+    <div class="border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center">
-        <!-- Logo con animación -->
-        <a href="#inicio" class="flex-shrink-0 group">
-          <div class="flex items-center space-x-3">
-            <img src="img/logo.png" alt="Birlos, Tuercas y Tornillos Durán" 
-                 :class="{ 'h-12': isScrolled, 'h-16': !isScrolled }"
-                 class="w-auto transition-all duration-300 transform group-hover:scale-105" />
-            <div class="hidden sm:block">
-              <h1 class="text-white font-bold text-xl leading-tight">BTT Durán</h1>
-              <p class="text-brand-yellow text-sm">Calidad y Servicio</p>
-            </div>
-          </div>
-        </a>
+      <div class="flex justify-between items-center h-20">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <a href="index.html" class="flex items-center">
+            <img src="img/logo_rey.png" alt="Logo" class="h-20 w-auto">
+            <span class="ml-3 text-xl font-bold text-blue-900"></span>
+          </a>
+        </div>
 
-        <!-- Desktop Menu con efectos hover mejorados -->
-        <nav class="hidden md:flex items-center space-x-6">
-          <div class="flex items-center space-x-1">
-            <a href="#inicio" class="nav-item group">
-              <span class="block px-3 py-2 rounded-lg text-white hover:text-brand-yellow transition-colors">
-                <i class="fas fa-home mr-1 group-hover:animate-bounce"></i> Inicio
-              </span>
-            </a>
-            <a href="#productos" class="nav-item group">
-              <span class="block px-3 py-2 rounded-lg text-white hover:text-brand-yellow transition-colors">
-                <i class="fas fa-tools mr-1 group-hover:animate-bounce"></i> Productos
-              </span>
-            </a>
-            <a href="#marcas" class="nav-item group">
-              <span class="block px-3 py-2 rounded-lg text-white hover:text-brand-yellow transition-colors">
-                <i class="fas fa-star mr-1 group-hover:animate-bounce"></i> Marcas
-              </span>
-            </a>
-            <a href="#contacto" class="nav-item group">
-              <span class="block px-3 py-2 rounded-lg text-white hover:text-brand-yellow transition-colors">
-                <i class="fas fa-envelope mr-1 group-hover:animate-bounce"></i> Contacto
-              </span>
-            </a>
-          </div>
-
-          <!-- Búsqueda mejorada -->
-          <div class="relative group">
-            <input type="search" 
-                   placeholder="Buscar producto..." 
-                   class="bg-white/10 text-white placeholder-white/60 rounded-full py-2 pl-4 pr-10 w-52 
-                          focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:bg-white/20 
-                          transition-all duration-300 focus:w-64">
-            <i class="fas fa-search absolute right-3 top-1/2 -translate-y-1/2 text-white/60 group-hover:text-brand-yellow transition-colors"></i>
-          </div>
-
-          <!-- Botón CTA -->
-          <a href="#contacto" 
-             class="inline-flex items-center px-4 py-2 rounded-lg bg-brand-yellow text-brand-blue-900 font-bold
-                    hover:bg-brand-yellow-500 transform hover:scale-105 transition-all duration-300
-                    shadow-lg hover:shadow-xl hover:shadow-brand-yellow/20">
-            <i class="fas fa-calculator mr-2"></i>
-            Cotizar
+        <!-- Navegación Desktop -->
+        <nav class="hidden md:flex items-center space-x-8">
+          <a href="#inicio" class="text-gray-700 hover:text-blue-900 transition-colors duration-300">Inicio</a>
+          <a href="#productos" class="text-gray-700 hover:text-blue-900 transition-colors duration-300">Productos</a>
+          <a href="#servicios" class="text-gray-700 hover:text-blue-900 transition-colors duration-300">Servicios</a>
+          <a href="#contacto" class="text-gray-700 hover:text-blue-900 transition-colors duration-300">Contacto</a>
+          <a href="catalogo.html" 
+             class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md 
+                    text-white bg-blue-900 hover:bg-blue-800 transition-colors duration-300">
+            <i class="fas fa-search mr-2"></i>
+            Catálogo
           </a>
         </nav>
 
-        <!-- Mobile Menu Button con animación mejorada -->
-        <button @click="isOpen = !isOpen" 
-                class="md:hidden p-2 rounded-lg text-white hover:bg-white/10 focus:outline-none
-                       transition-colors duration-300">
-          <div class="w-6 h-6 relative">
-            <span :class="isOpen ? 'rotate-45 translate-y-0' : '-translate-y-2'"
-                  class="absolute left-0 top-1/2 block w-full h-0.5 bg-current transform transition-transform duration-300"></span>
-            <span :class="isOpen ? 'opacity-0 translate-x-3' : 'opacity-100 translate-x-0'"
-                  class="absolute left-0 top-1/2 block w-full h-0.5 bg-current transform transition-all duration-300"></span>
-            <span :class="isOpen ? '-rotate-45 translate-y-0' : 'translate-y-2'"
-                  class="absolute left-0 top-1/2 block w-full h-0.5 bg-current transform transition-transform duration-300"></span>
-          </div>
-        </button>
+        <!-- Botón Menú Móvil -->
+        <div class="md:hidden">
+          <button @click="isOpen = !isOpen" 
+                  class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 
+                         hover:text-blue-900 hover:bg-gray-100 focus:outline-none">
+            <i :class="isOpen ? 'fas fa-times' : 'fas fa-bars'" class="text-xl"></i>
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Mobile Menu Mejorado -->
+    <!-- Menú Móvil -->
     <div x-show="isOpen" 
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0 -translate-y-4"
@@ -129,710 +112,429 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-4"
-         class="md:hidden absolute inset-x-0 top-full bg-brand-blue-800/95 backdrop-blur-sm"
-         @click.away="isOpen = false">
-      <div class="max-w-7xl mx-auto px-4 py-6">
-        <div class="grid gap-y-6">
-          <!-- Enlaces de navegación -->
-          <nav class="grid gap-y-4">
-            <a href="#inicio" 
-               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors group"
-               @click="isOpen = false">
-              <i class="fas fa-home w-5 text-brand-yellow group-hover:animate-bounce"></i>
-              <span class="text-white">Inicio</span>
-            </a>
-            <a href="#productos" 
-               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors group"
-               @click="isOpen = false">
-              <i class="fas fa-tools w-5 text-brand-yellow group-hover:animate-bounce"></i>
-              <span class="text-white">Productos</span>
-            </a>
-            <a href="#marcas" 
-               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors group"
-               @click="isOpen = false">
-              <i class="fas fa-star w-5 text-brand-yellow group-hover:animate-bounce"></i>
-              <span class="text-white">Marcas</span>
-            </a>
-            <a href="#contacto" 
-               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors group"
-               @click="isOpen = false">
-              <i class="fas fa-envelope w-5 text-brand-yellow group-hover:animate-bounce"></i>
-              <span class="text-white">Contacto</span>
-            </a>
-          </nav>
+         class="md:hidden bg-white border-t border-gray-200">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="#inicio" 
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-900 hover:bg-gray-50">
+          Inicio
+        </a>
+        <a href="#productos" 
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-900 hover:bg-gray-50">
+          Productos
+        </a>
+        <a href="#servicios" 
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-900 hover:bg-gray-50">
+          Servicios
+        </a>
+        <a href="#contacto" 
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-900 hover:bg-gray-50">
+          Contacto
+        </a>
+        <a href="catalogo.html" 
+           class="flex items-center px-3 py-2 rounded-md text-base font-medium text-blue-900 bg-blue-50 hover:bg-blue-100">
+          <i class="fas fa-search mr-2"></i>
+          Ver Catálogo
+        </a>
+      </div>
+    </div>
 
-          <!-- Búsqueda móvil -->
-          <div class="relative">
-            <input type="search" 
-                   placeholder="Buscar producto..." 
-                   class="w-full bg-white/10 text-white placeholder-white/60 rounded-lg py-3 pl-4 pr-10
-                          focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:bg-white/20
-                          transition-all duration-300">
-            <i class="fas fa-search absolute right-3 top-1/2 -translate-y-1/2 text-white/60"></i>
-          </div>
-
-          <!-- CTA móvil -->
-          <a href="#contacto" 
-             class="flex items-center justify-center space-x-2 p-3 rounded-lg bg-brand-yellow text-brand-blue-900 font-bold
-                    hover:bg-brand-yellow-500 transform hover:scale-105 transition-all duration-300
-                    shadow-lg hover:shadow-xl hover:shadow-brand-yellow/20"
-             @click="isOpen = false">
-            <i class="fas fa-calculator"></i>
-            <span>Solicitar Cotización</span>
-          </a>
+    <!-- Anuncio Inferior -->
+    <div class="bg-blue-900 text-white overflow-hidden shadow-lg">
+      <div class="relative flex whitespace-nowrap py-3">
+        <div class="animate-marquee flex items-center space-x-4 px-4">
+          <span class="inline-flex items-center">
+            <i class="fas fa-truck-fast mr-2"></i>
+            Envíos a todo México
+          </span>
+          <span class="inline-flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            Calidad Garantizada
+          </span>
+          <span class="inline-flex items-center">
+            <i class="fas fa-shield-alt mr-2"></i>
+            25 Años de Experiencia
+          </span>
+          <span class="inline-flex items-center">
+            <i class="fas fa-phone-alt mr-2"></i>
+            Atención Personalizada
+          </span>
         </div>
       </div>
     </div>
   </header>
 
-
-  <!-- Hero -->
-  <section id="inicio" class="relative min-h-screen flex items-center overflow-hidden">
-    <!-- Fondo dinámico con efecto parallax -->
-    <div class="absolute inset-0">
-      <!-- Fondo con efecto parallax -->
-      <div class="absolute inset-0 bg-cover bg-center transform scale-105" 
-           style="background-image: url('img/hero.jpg'); transform-origin: center center;"
-           x-data="{ scroll: 0 }"
-           x-init="window.addEventListener('scroll', () => scroll = window.pageYOffset)"
-           :style="{ transform: `scale(${1 + scroll * 0.0002}) translateY(${scroll * 0.5}px)` }">
-      </div>
-      <!-- Capas de gradiente para profundidad -->
-      <div class="absolute inset-0 bg-gradient-to-r from-brand-blue-900/95 via-brand-blue-900/90 to-brand-blue-800/85"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-      <!-- Patrón de puntos decorativo -->
-      <div class="absolute inset-0 bg-[radial-gradient(circle,_#ffffff11_1px,_transparent_1px)] bg-[length:24px_24px]"></div>
-    </div>
+  <!-- Hero Section -->
+  <section id="inicio" class="relative pt-44 pb-20 lg:pt-52 lg:pb-32 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+    <!-- Patrón de fondo -->
+    <div class="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
     
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <!-- Contenido Principal -->
-        <div class="space-y-8 backdrop-blur-sm bg-brand-blue-900/20 p-8 rounded-2xl border border-white/10
-                    transform hover:scale-[1.02] transition-transform duration-500">
-          <!-- Encabezado y descripción -->
-          <div class="space-y-6">
-            <div class="inline-flex items-center px-4 py-2 rounded-full bg-brand-yellow/10 border border-brand-yellow/20
-                        animate-fade-in-up">
-              <i class="fas fa-shield-alt text-brand-yellow mr-2"></i>
-              <span class="text-white text-sm font-semibold">Calidad Garantizada</span>
-            </div>
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight animate-fade-in-up">
-              Fuerza y <span class="text-brand-yellow">Precisión</span><br>
-              <span class="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
-                en Cada Pieza
-              </span>
-            </h1>
-            <p class="text-lg md:text-xl text-white/90 max-w-xl animate-fade-in-up animation-delay-200 leading-relaxed">
-              Especialistas en tornillería de alta calidad para la industria y el sector automotriz en Ciudad Juárez.
-            </p>
+        <!-- Contenido Hero -->
+        <div class="text-center lg:text-left" data-aos="fade-right">
+          <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium mb-6 
+                      border border-white/20">
+            <i class="fas fa-star mr-2 text-yellow-400"></i>
+            Expertos en Tornillería
           </div>
-
-          <!-- Botones de acción -->
-          <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-400">
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight text-shadow-lg mb-6">
+            Soluciones de<br>
+            <span class="text-yellow-400">Alta Calidad</span> para<br>
+            tu Industria
+          </h1>
+          
+          <p class="text-xl text-white/80 mb-8 max-w-lg mx-auto lg:mx-0">
+            Somos expertos en birlos, tuercas y tornillos para todas tus necesidades industriales y automotrices.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <a href="catalogo.html" 
-               class="group inline-flex items-center justify-center px-8 py-4 bg-brand-yellow text-brand-blue-900 
-                      font-bold rounded-xl transform hover:scale-105 transition-all duration-300 
-                      hover:shadow-lg hover:shadow-brand-yellow/20">
-              <i class="fas fa-book-open mr-2 group-hover:animate-bounce"></i> 
+               class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium 
+                      rounded-xl text-blue-900 bg-white hover:bg-yellow-400 transition-colors duration-300 shadow-lg">
+              <i class="fas fa-search mr-2"></i>
               Ver Catálogo
-              <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
             </a>
             <a href="#contacto" 
-               class="group inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white 
-                      font-bold rounded-xl border-2 border-white/10 hover:border-brand-yellow/50 
-                      transform hover:scale-105 transition-all duration-300
-                      hover:shadow-lg hover:shadow-brand-yellow/10">
-              <i class="fas fa-envelope mr-2 group-hover:animate-pulse"></i> 
-              Contactar Experto
+               class="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-lg font-medium 
+                      rounded-xl text-white hover:bg-white/10 transition-colors duration-300">
+              <i class="fas fa-phone-alt mr-2"></i>
+              Contactar
             </a>
           </div>
-
-          <!-- Características destacadas -->
-          <div class="grid grid-cols-2 gap-4 animate-fade-in-up animation-delay-600">
-            <div class="flex items-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-brand-yellow/30 
-                        transition-colors group">
-              <div class="w-12 h-12 flex items-center justify-center bg-brand-yellow/10 rounded-lg mr-4">
-                <i class="fas fa-check-circle text-brand-yellow text-xl group-hover:scale-110 transition-transform"></i>
-              </div>
-              <div>
-                <h3 class="font-semibold text-white">Calidad Garantizada</h3>
-                <p class="text-sm text-white/70">Productos certificados</p>
-              </div>
-            </div>
-            <div class="flex items-center p-4 bg-white/5 rounded-xl border border-white/10 hover:border-brand-yellow/30 
-                        transition-colors group">
-              <div class="w-12 h-12 flex items-center justify-center bg-brand-yellow/10 rounded-lg mr-4">
-                <i class="fas fa-shipping-fast text-brand-yellow text-xl group-hover:scale-110 transition-transform"></i>
-              </div>
-              <div>
-                <h3 class="font-semibold text-white">Entrega Rápida</h3>
-                <p class="text-sm text-white/70">Envíos en 24h</p>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <!-- Imagen Principal -->
-        <div class="hidden lg:block relative">
-          <!-- Elementos decorativos -->
-          <div class="absolute -inset-4 bg-gradient-to-r from-brand-yellow/20 to-brand-blue-500/20 rounded-full blur-3xl opacity-60"></div>
-          <div class="backdrop-blur-sm bg-white/5 p-8 rounded-2xl border border-white/10 
-                      transform hover:scale-[1.02] transition-transform duration-500
-                      animate-float">
-            <img src="img/birlo.png" 
-                 alt="Productos de calidad" 
-                 class="relative w-full h-auto max-w-lg mx-auto drop-shadow-2xl
-                        transform hover:rotate-3 transition-transform duration-700">
-            <!-- Indicadores de calidad -->
-            <div class="absolute -top-4 -right-4 bg-brand-yellow text-brand-blue-900 px-6 py-2 rounded-full 
-                        font-bold shadow-lg transform -rotate-12 animate-pulse">
-              Premium
-            </div>
+        
+        <!-- Imagen Hero -->
+        <div class="relative" data-aos="fade-left">
+          <div class="relative z-10 p-4">
+            <img src="img/hero.jpg" alt="Tornillería industrial" 
+                 class="rounded-2xl shadow-2xl w-full object-cover transform hover:scale-[1.02] transition-transform duration-500">
           </div>
+          <!-- Elementos decorativos -->
+          <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style="animation-delay: 1s"></div>
+        </div>
+      </div>
+
+      <!-- Estadísticas -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 text-center" data-aos="fade-up">
+        <div class="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+          <div class="text-3xl font-bold text-white mb-2">25+</div>
+          <div class="text-white/60">Años de Experiencia</div>
+        </div>
+        <div class="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+          <div class="text-3xl font-bold text-white mb-2">5000+</div>
+          <div class="text-white/60">Clientes Satisfechos</div>
+        </div>
+        <div class="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+          <div class="text-3xl font-bold text-white mb-2">10k+</div>
+          <div class="text-white/60">Productos Diferentes</div>
+        </div>
+        <div class="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+          <div class="text-3xl font-bold text-white mb-2">98%</div>
+          <div class="text-white/60">Satisfacción</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Categorías de Productos -->
-  <section id="productos" class="py-24 bg-gradient-to-b from-brand-blue-900 via-brand-blue-800 to-brand-blue-900 relative overflow-hidden">
-    <!-- Elementos decorativos -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle,_#ffffff08_1px,_transparent_1px)] bg-[length:32px_32px]"></div>
-    <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-yellow/10 rounded-full blur-3xl animate-pulse"></div>
-    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+  <section id="productos" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Encabezado de sección -->
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center px-4 py-2 rounded-full bg-brand-yellow/10 text-brand-yellow text-sm 
-                    font-semibold mb-4 border border-brand-yellow/20 animate-fade-in-up">
-          <i class="fas fa-certificate mr-2"></i>
-          Productos Premium
-        </div>
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in-up animation-delay-200">
-          Soluciones de Calidad
+      <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Nuestras Categorías de Productos
         </h2>
-        <p class="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-400">
-          Descubre nuestra línea completa de productos especializados para la industria y el sector automotriz.
+        <p class="text-lg text-gray-600">
+          Descubre nuestra amplia gama de productos de alta calidad para todas tus necesidades.
         </p>
       </div>
 
       <!-- Grid de categorías -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Birlos y Tuercas -->
-        <div class="group animate-fade-in-up animation-delay-600">
-          <div class="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-8
-                      shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 
-                      border border-white/10 hover:border-brand-yellow/30 overflow-hidden">
-            <!-- Decoración de fondo -->
-            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-yellow/20 to-transparent 
-                        rounded-full -mr-16 -mt-16 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-            
-            <div class="relative">
-              <!-- Ícono de categoría -->
-              <div class="w-16 h-16 bg-brand-yellow/10 rounded-xl flex items-center justify-center mb-6
-                          border border-brand-yellow/20 group-hover:scale-110 transition-transform">
-                <i class="fas fa-bolt text-3xl text-brand-yellow"></i>
-              </div>
-              
-              <!-- Título de categoría -->
-              <h3 class="text-2xl font-bold text-white mb-6 group-hover:text-brand-yellow transition-colors">
-                Birlos y Tuercas
-              </h3>
-
-              <!-- Lista de productos -->
-              <div class="space-y-4">
-                <a href="catalogo.html#birlos" 
-                   class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 
-                          transition-all duration-300 group/item border border-white/10 hover:border-brand-yellow/30">
-                  <img src="img/index/tornillo.jpg" alt="Birlos" 
-                       class="w-16 h-16 object-cover rounded-lg shadow-lg group-hover/item:scale-105 transition-transform">
-                  <div class="ml-4 flex-1">
-                    <h4 class="font-semibold text-white group-hover/item:text-brand-yellow transition-colors">Birlos</h4>
-                    <p class="text-sm text-white/70">Máxima seguridad y resistencia</p>
-                    <div class="flex items-center mt-2 text-brand-yellow text-sm">
-                      <span class="mr-2">Ver detalles</span>
-                      <i class="fas fa-arrow-right transform group-hover/item:translate-x-1 transition-transform"></i>
-                    </div>
-                  </div>
-                </a>
-
-                <a href="catalogo.html#tuercas" 
-                   class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 
-                          transition-all duration-300 group/item border border-white/10 hover:border-brand-yellow/30">
-                  <img src="img/index/Tuercas.jpg" alt="Tuercas" 
-                       class="w-16 h-16 object-cover rounded-lg shadow-lg group-hover/item:scale-105 transition-transform">
-                  <div class="ml-4 flex-1">
-                    <h4 class="font-semibold text-white group-hover/item:text-brand-yellow transition-colors">Tuercas</h4>
-                    <p class="text-sm text-white/70">Ajuste y durabilidad superior</p>
-                    <div class="flex items-center mt-2 text-brand-yellow text-sm">
-                      <span class="mr-2">Ver detalles</span>
-                      <i class="fas fa-arrow-right transform group-hover/item:translate-x-1 transition-transform"></i>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Categoría 1 -->
+        <div class="group relative rounded-2xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="100">
+          <div class="aspect-w-16 aspect-h-9">
+            <img src="img/birlo.png" alt="Birlos" 
+                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-90"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Birlos</h3>
+            <p class="text-white/80 mb-4">Alta resistencia y seguridad garantizada para tu vehículo.</p>
+            <a href="catalogo.html" 
+               class="inline-flex items-center text-yellow-400 font-medium group-hover:text-yellow-300 transition-colors">
+              Ver productos
+              <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+            </a>
           </div>
         </div>
 
-        <!-- Tornillos y Pijas -->
-        <div class="group animate-fade-in-up animation-delay-800">
-          <div class="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-8
-                      shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 
-                      border border-white/10 hover:border-brand-yellow/30 overflow-hidden">
-            <!-- Decoración de fondo -->
-            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-yellow/20 to-transparent 
-                        rounded-full -mr-16 -mt-16 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-            
-            <div class="relative">
-              <!-- Ícono de categoría -->
-              <div class="w-16 h-16 bg-brand-yellow/10 rounded-xl flex items-center justify-center mb-6
-                          border border-brand-yellow/20 group-hover:scale-110 transition-transform">
-                <i class="fas fa-wrench text-3xl text-brand-yellow"></i>
-              </div>
-              
-              <!-- Título de categoría -->
-              <h3 class="text-2xl font-bold text-white mb-6 group-hover:text-brand-yellow transition-colors">
-                Tornillos y Pijas
-              </h3>
-
-              <!-- Lista de productos -->
-              <div class="space-y-4">
-                <a href="catalogo.html#tornillos" 
-                   class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 
-                          transition-all duration-300 group/item border border-white/10 hover:border-brand-yellow/30">
-                  <img src="img/tornillometal.png" alt="Tornillos" 
-                       class="w-16 h-16 object-cover rounded-lg shadow-lg group-hover/item:scale-105 transition-transform">
-                  <div class="ml-4 flex-1">
-                    <h4 class="font-semibold text-white group-hover/item:text-brand-yellow transition-colors">Tornillos</h4>
-                    <p class="text-sm text-white/70">Alta resistencia y durabilidad</p>
-                    <div class="flex items-center mt-2 text-brand-yellow text-sm">
-                      <span class="mr-2">Ver detalles</span>
-                      <i class="fas fa-arrow-right transform group-hover/item:translate-x-1 transition-transform"></i>
-                    </div>
-                  </div>
-                </a>
-
-                <a href="catalogo.html#pijas" 
-                   class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 
-                          transition-all duration-300 group/item border border-white/10 hover:border-brand-yellow/30">
-                  <img src="img/index/Pijas.jpg" alt="Pijas" 
-                       class="w-16 h-16 object-cover rounded-lg shadow-lg group-hover/item:scale-105 transition-transform">
-                  <div class="ml-4 flex-1">
-                    <h4 class="font-semibold text-white group-hover/item:text-brand-yellow transition-colors">Pijas</h4>
-                    <p class="text-sm text-white/70">Fijación segura y precisa</p>
-                    <div class="flex items-center mt-2 text-brand-yellow text-sm">
-                      <span class="mr-2">Ver detalles</span>
-                      <i class="fas fa-arrow-right transform group-hover/item:translate-x-1 transition-transform"></i>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
+        <!-- Categoría 2 -->
+        <div class="group relative rounded-2xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="200">
+          <div class="aspect-w-16 aspect-h-9">
+            <img src="img/hexagonal.png" alt="Tuercas" 
+                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-90"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Tuercas</h3>
+            <p class="text-white/80 mb-4">Amplia variedad en medidas y materiales para cada necesidad.</p>
+            <a href="catalogo.html" 
+               class="inline-flex items-center text-yellow-400 font-medium group-hover:text-yellow-300 transition-colors">
+              Ver productos
+              <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+            </a>
           </div>
         </div>
 
-        <!-- Otros Productos -->
-        <div class="group animate-fade-in-up animation-delay-1000">
-          <div class="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-8
-                      shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 
-                      border border-white/10 hover:border-brand-yellow/30 overflow-hidden">
-            <!-- Decoración de fondo -->
-            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-yellow/20 to-transparent 
-                        rounded-full -mr-16 -mt-16 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-            
-            <div class="relative">
-              <!-- Ícono de categoría -->
-              <div class="w-16 h-16 bg-brand-yellow/10 rounded-xl flex items-center justify-center mb-6
-                          border border-brand-yellow/20 group-hover:scale-110 transition-transform">
-                <i class="fas fa-tools text-3xl text-brand-yellow"></i>
-              </div>
-              
-              <!-- Título de categoría -->
-              <h3 class="text-2xl font-bold text-white mb-6 group-hover:text-brand-yellow transition-colors">
-                Otros Productos
-              </h3>
-
-              <!-- Grid de productos -->
-              <div class="grid grid-cols-2 gap-4">
-                <a href="catalogo.html#arandelas" 
-                   class="group/item p-4 bg-white/5 rounded-xl hover:bg-white/10 
-                          transition-all duration-300 border border-white/10 hover:border-brand-yellow/30">
-                  <img src="img/arandela.png" alt="Arandelas" 
-                       class="w-16 h-16 object-cover rounded-lg shadow-lg mx-auto mb-3
-                              group-hover/item:scale-105 transition-transform">
-                  <h4 class="font-semibold text-white text-center group-hover/item:text-brand-yellow transition-colors">
-                    Arandelas
-                  </h4>
-                  <p class="text-sm text-white/70 text-center mt-1">Mayor presión</p>
-                  <div class="flex items-center justify-center mt-2 text-brand-yellow text-sm">
-                    <span class="mr-1">Ver más</span>
-                    <i class="fas fa-arrow-right transform group-hover/item:translate-x-1 transition-transform"></i>
-                  </div>
-                </a>
-
-                <a href="catalogo.html#remaches" 
-                   class="group/item p-4 bg-white/5 rounded-xl hover:bg-white/10 
-                          transition-all duration-300 border border-white/10 hover:border-brand-yellow/30">
-                  <img src="img/index/Remache.jpg" alt="Remaches" 
-                       class="w-16 h-16 object-cover rounded-lg shadow-lg mx-auto mb-3
-                              group-hover/item:scale-105 transition-transform">
-                  <h4 class="font-semibold text-white text-center group-hover/item:text-brand-yellow transition-colors">
-                    Remaches
-                  </h4>
-                  <p class="text-sm text-white/70 text-center mt-1">Unión perfecta</p>
-                  <div class="flex items-center justify-center mt-2 text-brand-yellow text-sm">
-                    <span class="mr-1">Ver más</span>
-                    <i class="fas fa-arrow-right transform group-hover/item:translate-x-1 transition-transform"></i>
-                  </div>
-                </a>
-
-                <a href="catalogo.html#herramientas" 
-                   class="group/item p-4 bg-white/5 rounded-xl hover:bg-white/10 
-                          transition-all duration-300 border border-white/10 hover:border-brand-yellow/30 col-span-2">
-                  <img src="img/index/Herramientas.jpg" alt="Herramientas" 
-                       class="w-16 h-16 object-cover rounded-lg shadow-lg mx-auto mb-3
-                              group-hover/item:scale-105 transition-transform">
-                  <h4 class="font-semibold text-white text-center group-hover/item:text-brand-yellow transition-colors">
-                    Herramientas
-                  </h4>
-                  <p class="text-sm text-white/70 text-center mt-1">Equipo profesional</p>
-                  <div class="flex items-center justify-center mt-2 text-brand-yellow text-sm">
-                    <span class="mr-1">Ver más</span>
-                    <i class="fas fa-arrow-right transform group-hover/item:translate-x-1 transition-transform"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
+        <!-- Categoría 3 -->
+        <div class="group relative rounded-2xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="300">
+          <div class="aspect-w-16 aspect-h-9">
+            <img src="img/puntabroca.png" alt="Tornillos" 
+                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-90"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Tornillos</h3>
+            <p class="text-white/80 mb-4">Durabilidad y resistencia para tus proyectos más exigentes.</p>
+            <a href="catalogo.html" 
+               class="inline-flex items-center text-yellow-400 font-medium group-hover:text-yellow-300 transition-colors">
+              Ver productos
+              <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+            </a>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- CTA -->
-      <div class="mt-20 text-center animate-fade-in-up animation-delay-1200">
-        <a href="catalogo.html" 
-           class="group inline-flex items-center justify-center px-8 py-4 text-lg font-bold 
-                  bg-brand-yellow text-brand-blue-900 rounded-xl 
-                  transform hover:scale-105 transition-all duration-300
-                  hover:shadow-lg hover:shadow-brand-yellow/20">
-          Explorar Catálogo Completo
-          <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
-        </a>
-        <p class="text-white/60 mt-4">
-          Encuentra especificaciones técnicas detalladas y opciones de personalización
+  <!-- Marcas -->
+  <section class="py-20 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Encabezado -->
+      <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Marcas de Confianza
+        </h2>
+        <p class="text-lg text-gray-600">
+          Trabajamos con las marcas más reconocidas de la industria automotriz.
+        </p>
+      </div>
+
+      <!-- Grid de Marcas -->
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center" data-aos="fade-up">
+        <!-- Chevrolet -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/chevrolet.svg" alt="Chevrolet" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- Dodge -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/Dodge.svg" alt="Dodge" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- Ford -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/Ford.svg" alt="Ford" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- GM -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/GM.svg" alt="General Motors" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- Honda -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/Honda.svg" alt="Honda" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- Hyundai -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/Hyundai.svg" alt="Hyundai" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- Jeep -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/Jeep.svg" alt="Jeep" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- Kia -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/Kia.svg" alt="Kia" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- Suzuki -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/Suzuki.svg" alt="Suzuki" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- Volkswagen -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/Volkswagen.svg" alt="Volkswagen" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+        
+        <!-- GMC -->
+        <div class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 
+                    flex items-center justify-center group">
+          <img src="img/marcas/GMC.svg" alt="GMC" class="h-12 w-auto opacity-60 group-hover:opacity-100 transition-opacity">
+        </div>
+
+      </div>
+
+      <!-- Texto de confianza -->
+      <div class="text-center mt-16" data-aos="fade-up">
+        <p class="text-gray-600 max-w-3xl mx-auto">
+          Nuestra experiencia y relación directa con las principales marcas automotrices nos permite ofrecerte 
+          los productos más confiables y de la más alta calidad para tu vehículo.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Marcas Destacadas -->
-  <section id="marcas" class="py-20 bg-neutral-100">
+  <!-- Servicios -->
+  <section id="servicios" class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-neutral-800">Trabajamos con las Mejores Marcas</h2>
-        <p class="text-lg text-neutral-500 mt-2">Calidad y confianza respaldada por los líderes de la industria.</p>
-      </div>
-      <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center">
-        <div class="logo-container">
-          <img src="img/marcas/chevrolet.svg" alt="Chevrolet" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/dodge.svg" alt="Dodge" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/ford.svg" alt="Ford" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/gm.svg" alt="General Motors" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/gmc.svg" alt="GMC" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/honda.svg" alt="Honda" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/hyundai.svg" alt="Hyundai" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/jeep.svg" alt="Jeep" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/kia.svg" alt="Kia" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/suzuki.svg" alt="Suzuki" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/volkswagen.svg" alt="Volkswagen" class="max-h-12">
-        </div>
-        <div class="logo-container">
-          <img src="img/marcas/toyota.svg" alt="Toyota" class="max-h-12">
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Propuesta de Valor -->
-  <section id="propuesta-valor" class="py-24 bg-gradient-to-b from-white via-neutral-50 to-neutral-100 relative overflow-hidden">
-    <!-- Decorative elements -->
-    <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
-    <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-yellow/20 rounded-full blur-3xl"></div>
-    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-blue-dark/20 rounded-full blur-3xl"></div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-      <div class="text-center mb-20">
-        <span class="inline-block px-4 py-1 rounded-full bg-brand-yellow/15 text-brand-yellow-dark text-sm font-semibold mb-4 shadow-sm">
-          ¿Por Qué Elegirnos?
-        </span>
-        <h2 class="text-3xl md:text-4xl font-bold text-brand-blue-dark mb-4">Una Tradición de Excelencia</h2>
-        <p class="text-lg text-neutral-700 max-w-2xl mx-auto leading-relaxed">
-          Más de 20 años siendo líderes en el mercado de tornillería, ofreciendo soluciones de calidad para cada proyecto.
+      <!-- Encabezado -->
+      <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Nuestros Servicios
+        </h2>
+        <p class="text-lg text-gray-600">
+          Ofrecemos soluciones integrales para satisfacer todas tus necesidades de tornillería.
         </p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Feature Card -->
-        <div class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <div class="relative mb-6">
-            <div class="absolute -inset-1 bg-gradient-to-r from-brand-yellow to-yellow-400 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-            <div class="relative flex items-center justify-center h-16 w-16 rounded-xl bg-brand-yellow text-brand-blue-dark">
-              <i class="fas fa-warehouse text-2xl group-hover:scale-110 transition-transform"></i>
-            </div>
+      <!-- Grid de servicios -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Servicio 1 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:border-blue-500/20 transition-colors" 
+             data-aos="fade-up" data-aos-delay="100">
+          <div class="w-16 h-16 bg-blue-100 text-blue-900 rounded-2xl flex items-center justify-center mb-6">
+            <i class="fas fa-truck-fast text-2xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-brand-blue-dark mb-3 group-hover:text-brand-yellow transition-colors">
-            Amplio Stock
-          </h3>
-          <p class="text-neutral-600 leading-relaxed">
-            Inventario extenso y variado para surtir tus pedidos de manera inmediata. Disponibilidad garantizada en productos de alta demanda.
-          </p>
+          <h3 class="text-xl font-bold text-gray-900 mb-4">Entrega Rápida</h3>
+          <p class="text-gray-600">Servicio de entrega eficiente a cualquier parte de México. Tu pedido donde lo necesitas.</p>
         </div>
 
-        <!-- Feature Card -->
-        <div class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <div class="relative mb-6">
-            <div class="absolute -inset-1 bg-gradient-to-r from-brand-yellow to-yellow-400 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-            <div class="relative flex items-center justify-center h-16 w-16 rounded-xl bg-brand-yellow text-brand-blue-dark">
-              <i class="fas fa-check-circle text-2xl group-hover:scale-110 transition-transform"></i>
-            </div>
+        <!-- Servicio 2 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:border-blue-500/20 transition-colors" 
+             data-aos="fade-up" data-aos-delay="200">
+          <div class="w-16 h-16 bg-blue-100 text-blue-900 rounded-2xl flex items-center justify-center mb-6">
+            <i class="fas fa-gear text-2xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-brand-blue-dark mb-3 group-hover:text-brand-yellow transition-colors">
-            Calidad Certificada
-          </h3>
-          <p class="text-neutral-600 leading-relaxed">
-            Productos que cumplen con los más altos estándares internacionales de calidad. Resistencia y durabilidad garantizadas.
-          </p>
+          <h3 class="text-xl font-bold text-gray-900 mb-4">Asesoría Técnica</h3>
+          <p class="text-gray-600">Expertos disponibles para ayudarte a elegir los productos ideales para tu proyecto.</p>
         </div>
 
-        <!-- Feature Card -->
-        <div class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <div class="relative mb-6">
-            <div class="absolute -inset-1 bg-gradient-to-r from-brand-yellow to-yellow-400 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-            <div class="relative flex items-center justify-center h-16 w-16 rounded-xl bg-brand-yellow text-brand-blue-dark">
-              <i class="fas fa-headset text-2xl group-hover:scale-110 transition-transform"></i>
-            </div>
+        <!-- Servicio 3 -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:border-blue-500/20 transition-colors" 
+             data-aos="fade-up" data-aos-delay="300">
+          <div class="w-16 h-16 bg-blue-100 text-blue-900 rounded-2xl flex items-center justify-center mb-6">
+            <i class="fas fa-box text-2xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-brand-blue-dark mb-3 group-hover:text-brand-yellow transition-colors">
-            Asesoría Experta
-          </h3>
-          <p class="text-neutral-600 leading-relaxed">
-            Equipo técnico especializado para brindarte la mejor orientación. Soluciones personalizadas para cada proyecto.
-          </p>
-        </div>
-      </div>
-
-      <!-- Stats -->
-      <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div class="text-center">
-          <div class="text-4xl font-bold text-brand-yellow mb-2">20+</div>
-          <div class="text-neutral-600">Años de Experiencia</div>
-        </div>
-        <div class="text-center">
-          <div class="text-4xl font-bold text-brand-yellow mb-2">5000+</div>
-          <div class="text-neutral-600">Clientes Satisfechos</div>
-        </div>
-        <div class="text-center">
-          <div class="text-4xl font-bold text-brand-yellow mb-2">10k+</div>
-          <div class="text-neutral-600">Productos en Stock</div>
-        </div>
-        <div class="text-center">
-          <div class="text-4xl font-bold text-brand-yellow mb-2">24h</div>
-          <div class="text-neutral-600">Entrega Local</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-4">Stock Permanente</h3>
+          <p class="text-gray-600">Amplio inventario disponible para satisfacer tus necesidades inmediatas.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contacto y Ubicación -->
-  <section id="contacto" class="py-20 bg-gradient-to-b from-neutral-900 to-neutral-800 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <span class="inline-block px-4 py-1 rounded-full bg-brand-yellow/20 text-brand-yellow text-sm font-semibold mb-4">
-          Contacto
-        </span>
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¿Cómo Podemos Ayudarte?</h2>
-        <p class="text-lg text-neutral-200 mt-2 max-w-2xl mx-auto">Nuestro equipo está listo para brindarte la mejor atención y asesoría.</p>
-      </div>
-      <div class="grid lg:grid-cols-2 gap-12 items-start">
-        <!-- Formulario de Contacto -->
-        <div class="bg-neutral-800/50 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-neutral-700/50 transform hover:scale-[1.01] transition-all duration-300">
-          <h3 class="text-2xl font-bold mb-6 text-brand-yellow flex items-center">
-            <i class="fas fa-envelope-open-text mr-3 text-3xl"></i>
-            Envíanos un Mensaje
-          </h3>
-          <form id="contactForm" class="space-y-6">
-            <div class="group">
-              <label for="nombre" class="flex items-center text-sm font-bold text-neutral-200 mb-2">
-                <i class="fas fa-user text-brand-yellow mr-2"></i>
-                Nombre
-              </label>
-              <input type="text" 
-                     id="nombre" 
-                     name="nombre" 
-                     placeholder="Tu nombre completo" 
-                     class="w-full px-4 py-3 rounded-lg bg-neutral-700/50 text-white placeholder-neutral-400 border border-neutral-600 focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 transition-all duration-300 outline-none"
-                     required>
+  <!-- Contacto -->
+  <section id="contacto" class="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+    <!-- Patrón de fondo -->
+    <div class="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Información de contacto -->
+        <div class="space-y-8" data-aos="fade-right">
+          <div class="text-white">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Contáctanos</h2>
+            <p class="text-white/80 text-lg mb-8">
+              Estamos aquí para ayudarte. Contáctanos por cualquiera de estos medios o llena el formulario.
+            </p>
+          </div>
+
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-map-marker-alt text-yellow-400 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold mb-1">Dirección</h3>
+                <p class="text-white/80">Calle Principal #123, Ciudad Juárez, Chihuahua</p>
+              </div>
             </div>
-            <div class="group">
-              <label for="email" class="flex items-center text-sm font-bold text-neutral-200 mb-2">
-                <i class="fas fa-at text-brand-yellow mr-2"></i>
-                Correo Electrónico
-              </label>
-              <input type="email" 
-                     id="email" 
-                     name="email" 
-                     placeholder="tu@email.com" 
-                     class="w-full px-4 py-3 rounded-lg bg-neutral-700/50 text-white placeholder-neutral-400 border border-neutral-600 focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 transition-all duration-300 outline-none"
-                     required>
+
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-phone text-yellow-400 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold mb-1">Teléfono</h3>
+                <p class="text-white/80">+52 (656) 123-4567</p>
+              </div>
             </div>
-            <div class="group">
-              <label for="asunto" class="flex items-center text-sm font-bold text-neutral-200 mb-2">
-                <i class="fas fa-tag text-brand-yellow mr-2"></i>
-                Asunto
-              </label>
-              <select id="asunto" 
-                      name="asunto" 
-                      class="w-full px-4 py-3 rounded-lg bg-neutral-700/50 text-white border border-neutral-600 focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 transition-all duration-300 outline-none"
-                      required>
-                <option value="" disabled selected>Selecciona un asunto</option>
-                <option value="cotizacion">Solicitar Cotización</option>
-                <option value="producto">Consulta sobre Producto</option>
-                <option value="pedido">Seguimiento de Pedido</option>
-                <option value="otro">Otro</option>
-              </select>
+
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-envelope text-yellow-400 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold mb-1">Email</h3>
+                <p class="text-white/80">contacto@tornilleriaduran.com</p>
+              </div>
             </div>
-            <div class="group">
-              <label for="mensaje" class="flex items-center text-sm font-bold text-neutral-200 mb-2">
-                <i class="fas fa-comment-alt text-brand-yellow mr-2"></i>
-                Mensaje
-              </label>
-              <textarea id="mensaje" 
-                        name="mensaje" 
-                        placeholder="¿En qué podemos ayudarte?" 
-                        rows="5" 
-                        class="w-full px-4 py-3 rounded-lg bg-neutral-700/50 text-white placeholder-neutral-400 border border-neutral-600 focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 transition-all duration-300 outline-none resize-none"
-                        required></textarea>
-            </div>
-            <div class="text-right">
+          </div>
+        </div>
+
+        <!-- Formulario -->
+        <div class="relative" data-aos="fade-left">
+          <div class="bg-white rounded-2xl p-8 shadow-xl">
+            <form class="space-y-6">
+              <div>
+                <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" required
+                       class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              </div>
+              
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                <input type="email" id="email" name="email" required
+                       class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              </div>
+              
+              <div>
+                <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono"
+                       class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              </div>
+              
+              <div>
+                <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="4" required
+                          class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"></textarea>
+              </div>
+              
               <button type="submit" 
-                      class="group relative inline-flex items-center justify-center px-8 py-3 font-bold text-white bg-brand-yellow hover:bg-brand-yellow/90 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-yellow/20">
-                <span class="relative flex items-center">
-                  <i class="fas fa-paper-plane mr-2 group-hover:translate-x-1 transition-transform"></i>
-                  Enviar Mensaje
-                </span>
+                      class="w-full flex items-center justify-center px-8 py-4 bg-blue-900 text-white rounded-xl
+                             hover:bg-blue-800 transition-colors duration-300">
+                <i class="fas fa-paper-plane mr-2"></i>
+                Enviar mensaje
               </button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Información y Mapa -->
-        <div class="space-y-8">
-          <div class="bg-neutral-800/50 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-neutral-700/50 transform hover:scale-[1.01] transition-all duration-300">
-            <h3 class="text-2xl font-bold mb-6 text-brand-yellow flex items-center">
-              <i class="fas fa-info-circle mr-3 text-3xl"></i>
-              Información de Contacto
-            </h3>
-            <div class="space-y-6">
-              <!-- Dirección -->
-              <div class="group bg-neutral-700/30 p-4 rounded-lg hover:bg-neutral-700/40 transition-all duration-300">
-                <div class="flex items-start">
-                  <div class="flex-shrink-0">
-                    <div class="w-12 h-12 bg-brand-yellow/10 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-map-marker-alt text-2xl text-brand-yellow"></i>
-                    </div>
-                  </div>
-                  <div class="ml-4">
-                    <h4 class="text-neutral-200 font-semibold mb-1">Dirección</h4>
-                    <p class="text-neutral-400">Av. Tecnológico 5420, Col. Lomas del Rey, 32563, Cd. Juárez, Chihuahua.</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Teléfono -->
-              <div class="group bg-neutral-700/30 p-4 rounded-lg hover:bg-neutral-700/40 transition-all duration-300">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0">
-                    <div class="w-12 h-12 bg-brand-yellow/10 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-phone-alt text-2xl text-brand-yellow"></i>
-                    </div>
-                  </div>
-                  <div class="ml-4">
-                    <h4 class="text-neutral-200 font-semibold mb-1">Teléfono</h4>
-                    <p class="text-neutral-400">
-                      <a href="tel:+526566171234" class="hover:text-brand-yellow transition-colors">(656) 617-1234</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Correo -->
-              <div class="group bg-neutral-700/30 p-4 rounded-lg hover:bg-neutral-700/40 transition-all duration-300">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0">
-                    <div class="w-12 h-12 bg-brand-yellow/10 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-envelope text-2xl text-brand-yellow"></i>
-                    </div>
-                  </div>
-                  <div class="ml-4">
-                    <h4 class="text-neutral-200 font-semibold mb-1">Correo Electrónico</h4>
-                    <p class="text-neutral-400">
-                      <a href="mailto:ventas@bttduran.com" class="hover:text-brand-yellow transition-colors">ventas@bttduran.com</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Horario -->
-              <div class="group bg-neutral-700/30 p-4 rounded-lg hover:bg-neutral-700/40 transition-all duration-300">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0">
-                    <div class="w-12 h-12 bg-brand-yellow/10 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-clock text-2xl text-brand-yellow"></i>
-                    </div>
-                  </div>
-                  <div class="ml-4">
-                    <h4 class="text-neutral-200 font-semibold mb-1">Horario de Atención</h4>
-                    <p class="text-neutral-400">Lunes a Viernes: 8:00 AM - 6:00 PM</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Mapa con estilo mejorado -->
-          <div class="bg-neutral-800/50 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-neutral-700/50 transform hover:scale-[1.01] transition-all duration-300">
-            <div class="relative">
-              <div class="absolute inset-0 bg-gradient-to-b from-brand-yellow/5 to-transparent pointer-events-none rounded-lg"></div>
-              <div class="overflow-hidden rounded-lg shadow-lg h-96">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4859.37102201507!2d-106.39037396125765!3d31.65177755975833!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e75dc9dc846163%3A0x476b53464b418c3f!2sBirlos%20Tuercas%20y%20Tornillos!5e1!3m2!1ses-419!2smx!4v1754667944000!5m2!1ses-419!2smx" 
-                  class="w-full h-full" 
-                  allowfullscreen="" 
-                  loading="lazy" 
-                  referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -840,15 +542,70 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-neutral-900 text-neutral-400 text-center py-8">
-    <div class="flex justify-center space-x-6 mb-4">
-      <a href="#" class="hover:text-brand-yellow transition"><i class="fab fa-facebook-f text-xl"></i></a>
-      <a href="#" class="hover:text-brand-yellow transition"><i class="fab fa-whatsapp text-xl"></i></a>
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-12 mb-8">
+        <!-- Columna 1 -->
+        <div>
+          <img src="img/logo.png" alt="Logo" class="h-20 mb-4">
+          <p class="text-gray-400">
+            Más de 25 años ofreciendo soluciones de calidad en tornillería industrial y automotriz.
+          </p>
+        </div>
+        
+        <!-- Columna 2 -->
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
+          <ul class="space-y-2">
+            <li><a href="#inicio" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
+            <li><a href="#productos" class="text-gray-400 hover:text-white transition-colors">Productos</a></li>
+            <li><a href="#servicios" class="text-gray-400 hover:text-white transition-colors">Servicios</a></li>
+            <li><a href="#contacto" class="text-gray-400 hover:text-white transition-colors">Contacto</a></li>
+          </ul>
+        </div>
+        
+        <!-- Columna 3 -->
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Síguenos</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400">&copy; 2025 Birlos, Tuercas y Tornillos Durán. Todos los derechos reservados.</p>
+      </div>
     </div>
-    <p>&copy; 2025 Birlos, Tuercas y Tornillos Durán. Todos los derechos reservados.</p>
-    <p class="text-sm text-neutral-500 mt-1">Diseño por Ever</p>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script>
+    // Inicializar AOS
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100
+    });
+    
+    // Manejar el scroll para el header
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 0) {
+        header.classList.add('shadow-lg');
+      } else {
+        header.classList.remove('shadow-lg');
+      }
+    });
+  </script>
+</body>
+</html>
 </body>
 </html>
