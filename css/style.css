@@ -1,11 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav-link {
+    @apply text-white/80 hover:text-white transition-colors duration-300 font-medium;
+  }
+  .nav-link-active {
+    @apply text-yellow-400 font-bold;
+  }
+  .mobile-nav-link {
+    @apply block px-3 py-2 rounded-md text-base font-medium text-white/80 
+           hover:text-white hover:bg-white/10 transition-colors;
+  }
+  .mobile-nav-link-active {
+    @apply block px-3 py-2 rounded-md text-base font-medium text-yellow-400 bg-yellow-400/10;
+  }
+  .input-field {
+    @apply w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/30
+           focus:outline-none focus:border-yellow-400/50 transition-colors;
+  }
+  .select-field {
+    @apply w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white
+           appearance-none focus:outline-none focus:border-yellow-400/50 transition-colors;
+  }
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+  .product-card {
+    @apply relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/10 to-white/5 
+           backdrop-blur-sm group hover:scale-[1.02] transition-all duration-300
+           border border-white/10 hover:border-yellow-400/30 shadow-lg;
+  }
+
+  /* Clases mejoradas para imágenes */
+  .product-image-container {
+    @apply relative overflow-hidden rounded-lg bg-gradient-to-br from-white to-neutral-100;
+  }
+
+  .product-image-container img {
+    @apply w-full h-full object-contain mix-blend-multiply hover:scale-105 transition-transform duration-300;
+  }
+
+  .logo-container {
+    @apply flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300;
+  }
+
+  .logo-container img {
+    @apply max-h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300;
+  }
+
+  /* Clases para mejorar el contraste de texto */
+  .text-on-dark {
+    @apply text-white drop-shadow-lg;
+  }
+
+  .text-on-light {
+    @apply text-neutral-800;
+  }
+
+  /* Clases para fondos con degradado */
+  .bg-gradient-brand {
+    @apply bg-gradient-to-br from-brand-blue-dark via-brand-blue to-brand-blue-light;
+  }
+
+  .bg-gradient-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent;
+  }
+
+  /* Clases para imágenes con fondo blanco */
+  .img-with-bg {
+    @apply bg-white p-4 rounded-lg shadow-sm;
+  }
+
+  .img-with-bg img {
+    @apply mix-blend-multiply hover:mix-blend-normal transition-all duration-300;
+  }
+
+  /* Nuevo estilo para categorías de productos */
+  .category-card {
+    @apply relative overflow-hidden rounded-xl shadow-lg group;
+  }
+
+  .category-card img {
+    @apply w-full h-full object-cover transition-transform duration-500 group-hover:scale-110;
+  }
+
+  .category-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300;
+  }
+
+  .category-content {
+    @apply absolute bottom-0 left-0 right-0 p-6 transform transition-transform duration-300 group-hover:translate-y-0;
+  }
+  
+  /* Clases para el manejo de imágenes */
+  .product-image {
+    @apply p-4 bg-white rounded-lg shadow-sm transition-all duration-300;
+  }
+  .product-image-dark {
+    @apply p-4 bg-neutral-800 rounded-lg shadow-sm transition-all duration-300;
+  }
+  .image-container {
+    @apply relative overflow-hidden rounded-lg;
+  }
+  .image-container img {
+    @apply object-cover w-full h-full transition-transform duration-300;
+  }
+  .image-container:hover img {
+    @apply scale-105;
+  }
+  
+  /* Clases para iconos y logos */
+  .logo-grid {
+    @apply grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-center p-8;
+  }
+  .logo-item {
+    @apply flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300;
+  }
+  
+  /* Clases para texto sobre imágenes */
+  .text-overlay {
+    @apply absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white opacity-0 transition-opacity duration-300;
+  }
+  .image-container:hover .text-overlay {
+    @apply opacity-100;
+  }
+}
+
 body {
-      font-family: 'Montserrat', sans-serif;
-    }
-    /* Animaciones personalizadas */
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .fade-in-up {
-      animation: fadeInUp 1s ease forwards;
-    }
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Clases para el manejo de imágenes */
+.product-image {
+  @apply p-4 bg-white rounded-lg shadow-sm transition-all duration-300;
+}
+
+.product-image-dark {
+  @apply p-4 bg-neutral-800 rounded-lg shadow-sm transition-all duration-300;
+}
+
+.image-container {
+  @apply relative overflow-hidden rounded-lg;
+}
+
+.image-container img {
+  @apply object-cover w-full h-full transition-transform duration-300;
+}
+
+.image-container:hover img {
+  @apply scale-105;
+}
+
+/* Clases para iconos y logos */
+.logo-grid {
+  @apply grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-center p-8;
+}
+
+.logo-item {
+  @apply flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300;
+}
+
+/* Clases para texto sobre imágenes */
+.text-overlay {
+  @apply absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white opacity-0 transition-opacity duration-300;
+}
+
+.image-container:hover .text-overlay {
+  @apply opacity-100;
+}

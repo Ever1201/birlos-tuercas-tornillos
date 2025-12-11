@@ -1,109 +1,209 @@
-function mostrarProducto(tipo) {
-  const producto = document.getElementById('producto');
-  const img = document.getElementById('producto-img');
-  const nombre = document.getElementById('producto-nombre');
-  const modelosContainer = document.getElementById('producto-modelos');
+function catalog() {
+  return {
+    products: [
+      // Birlos (Threaded Fasteners)
+      {
+        id: 1,
+        name: 'Birlo de Seguridad Cromado',
+        code: 'BS-5001',
+        category: 'birlos',
+        image: 'img/BR50030L-1.png',
+        specifications: {
+          Material: 'Acero templado cromado',
+          Longitud: '50mm',
+          Diámetro: '12mm',
+          Rosca: 'M12x1.5'
+        }
+      },
+      {
+        id: 2,
+        name: 'Birlo Largo Cromado',
+        code: 'BC-7020',
+        category: 'birlos',
+        image: 'img/BR70209RP-4.png',
+        specifications: {
+          Material: 'Acero cromado',
+          Longitud: '70mm',
+          Diámetro: '14mm',
+          Rosca: 'M14x1.5'
+        }
+      },
+      {
+        id: 3,
+        name: 'Birlo para Camión',
+        code: 'BTA-226',
+        category: 'birlos',
+        image: 'img/BTA226A-1.png',
+        specifications: {
+          Material: 'Acero de alta resistencia',
+          Longitud: '90mm',
+          Diámetro: '22mm',
+          Rosca: 'M22x1.5'
+        }
+      },
+      {
+        id: 4,
+        name: 'Birlo Deportivo Rojo',
+        code: 'BD-4313',
+        category: 'birlos',
+        image: 'img/BTA4313R-1.png',
+        specifications: {
+          Material: 'Aluminio anodizado',
+          Longitud: '45mm',
+          Diámetro: '12mm',
+          Acabado: 'Rojo'
+        }
+      },
+      {
+        id: 17,
+        name: 'Birlo Estándar',
+        code: 'BE-100',
+        category: 'birlos',
+        image: 'img/birlo.png',
+        specifications: {
+          Material: 'Acero al carbono',
+          Longitud: '40mm',
+          Diámetro: '12mm',
+          Rosca: 'M12x1.5'
+        }
+      },
 
-  // Datos del catálogo
-  const catalogo = {
-    birlo: {
-      img: 'img/birlo.png',
-      nombre: 'Birlos - Encuentra el adecuado para tu vehículo',
-      modelos: [
-        { nombre: 'Birlo Chevrolet', img: 'img/logossvg/Chevrolet.svg' },
-        { nombre: 'Birlo Chrysler', img: 'img/logossvg/Dodge.svg' },
-        { nombre: 'Birlo Ford', img: 'img/logossvg/Ford.svg' },
-        { nombre: 'Birlo GM', img: 'img/logossvg/GM.svg' },
-        { nombre: 'Birlo GMC', img: 'img/logossvg/GMC.svg' },
-        { nombre: 'Birlo Honda', img: 'img/logossvg/Honda.svg' },
-        { nombre: 'Birlo Hyundai', img: 'img/logossvg/Hyundai.svg' },
-        { nombre: 'Birlo Jeep', img: 'img/logossvg/Jeep.svg' },
-        { nombre: 'Birlo Kia', img: 'img/logossvg/Kia.svg' },
-        { nombre: 'Birlo Suzuki', img: 'img/logossvg/Suzuki.svg' },
-        { nombre: 'Birlo Volkswagen', img: 'img/logossvg/Volkswagen.svg' },
-        { nombre: 'Birlo para casi todos los modelos, pregunta por el que necesites', img: 'none' }
-      ]
+      // Tuercas (Nuts)
+      {
+        id: 5,
+        name: 'Tuerca de Seguridad',
+        code: 'TS-101',
+        category: 'tuercas',
+        image: 'img/seguridad.png',
+        specifications: {
+          Material: 'Acero templado',
+          Tipo: 'Autoblocante',
+          Rosca: 'M12x1.5',
+          Altura: '16mm'
+        }
+      },
+      {
+        id: 6,
+        name: 'Tuerca Hexagonal',
+        code: 'TH-202',
+        category: 'tuercas',
+        image: 'img/hexagonal.png',
+        specifications: {
+          Material: 'Acero grado 8',
+          Tipo: 'DIN 934',
+          Rosca: 'M14x1.5',
+          Altura: '12mm'
+        }
+      },
+
+      // Tornillos (Screws/Bolts)
+      {
+        id: 9,
+        name: 'Tornillo Cabeza Hexagonal',
+        code: 'TCH-001',
+        category: 'tornillos',
+        image: 'img/hexagonal1.png',
+        specifications: {
+          Material: 'Acero galvanizado',
+          Longitud: '30mm',
+          Diámetro: '8mm',
+          Rosca: 'M8x1.25'
+        }
+      },
+      {
+        id: 10,
+        name: 'Tornillo Allen',
+        code: 'TA-002',
+        category: 'tornillos',
+        image: 'img/socket.png',
+        specifications: {
+          Material: 'Acero inoxidable',
+          Longitud: '25mm',
+          Diámetro: '6mm',
+          Rosca: 'M6x1.0'
+        }
+      },
+
+      // Arandelas (Washers)
+      {
+        id: 13,
+        name: 'Arandela Plana',
+        code: 'AP-501',
+        category: 'arandelas',
+        image: 'img/plana.png',
+        specifications: {
+          Material: 'Acero inoxidable',
+          'Diámetro ext': '24mm',
+          'Diámetro int': '13mm',
+          Espesor: '2mm'
+        }
+      },
+      {
+        id: 14,
+        name: 'Arandela de Presión',
+        code: 'ADP-502',
+        category: 'arandelas',
+        image: 'img/presion.png',
+        specifications: {
+          Material: 'Acero al carbono',
+          'Diámetro ext': '20mm',
+          'Diámetro int': '10mm',
+          Tipo: 'Grower'
+        }
+      }
+    ],
+    categories: [
+      { id: 'birlos', name: 'Birlos' },
+      { id: 'tuercas', name: 'Tuercas' },
+      { id: 'tornillos', name: 'Tornillos' },
+      { id: 'arandelas', name: 'Arandelas' }
+    ],
+    searchTerm: '',
+    selectedCategory: 'all',
+    sortBy: 'name-asc',
+    filteredProducts: [],
+
+    init() {
+      this.filterProducts();
     },
-    tuerca: {
-      img: 'img/tuerca.png',
-      nombre: 'Tuercas',
-      modelos: [
-        { nombre: 'Tuerca hexagonal', img: 'img/hexagonal.png' },
-        { nombre: 'Tuerca seguridad', img: 'img/seguridad.png' },
-        { nombre: 'Tuerca castillo', img: 'img/Tuercas-Castillo.png' },
-        { nombre: 'Tuerca lujo corta', img: 'img/tuercalujocorta.jpg' },
-        { nombre: 'Tuerca lujo larga', img: 'img/tuercalujoalta.png' },
-        { nombre: 'Tuerca corta', img: 'img/tuercabirlo.png' }
-      ]
+
+    filterProducts() {
+      // Aplicar filtros
+      this.filteredProducts = this.products.filter(product => {
+        const searchMatch = !this.searchTerm || 
+          product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          product.code.toLowerCase().includes(this.searchTerm.toLowerCase());
+        const categoryMatch = this.selectedCategory === 'all' || product.category === this.selectedCategory;
+        return searchMatch && categoryMatch;
+      });
+
+      // Aplicar ordenamiento
+      this.sortProducts();
     },
-    tornillo: {
-      img: 'img/tornillo.png',
-      nombre: 'Tornillos',
-      modelos: [
-        { nombre: 'Tornillo Allen cabeza cilíndrica', img: 'img/socket.png' },
-        { nombre: 'Tornillo Allen cabeza avellanada', img: 'img/boton.png' },
-        { nombre: 'Tornillo de cabeza hexagonal', img: 'img/hexagonal1.png' },
-        { nombre: 'Tornillo de cabeza plana', img: 'img/plano.png' },
-        { nombre: 'Tornillo autorroscante', img: 'img/buscarosca.png' },
-        { nombre: 'Tornillo para madera', img: 'img/pija.png' },
-        { nombre: 'Tornillo para metal', img: 'img/puntabroca.png' },
-        { nombre: 'Tornillo de máquina', img: 'img/tornillo.png' }
-      ]
+
+    sortProducts() {
+      const [field, direction] = this.sortBy.split('-');
+      this.filteredProducts.sort((a, b) => {
+        let comparison = 0;
+        if (field === 'name') {
+          comparison = a.name.localeCompare(b.name);
+        } else if (field === 'code') {
+          comparison = a.code.localeCompare(b.code);
+        }
+        return direction === 'asc' ? comparison : -comparison;
+      });
     },
-    arandela: {
-      img: 'img/arandela.png',
-      nombre: 'Arandelas',
-      modelos: [
-        { nombre: 'Arandela plana', img: 'img/plana.png' },
-        { nombre: 'Arandela de presión (Grower)', img: 'img/presion.png' },
-        { nombre: 'Arandela automotriz', img: 'img/automotriz.png' },
-        { nombre: 'Arandela dentada interna', img: 'img/arandela-dentada-interna.png' },
-        { nombre: 'Arandela dentada externa', img: 'img/arandela-dentada-externa.png' },
-        { nombre: 'Arandela de goma', img: 'img/arandela-goma.png' },
-        { nombre: 'Arandela cóncava', img: 'img/arandela-concava.png' },
-        { nombre: 'Arandela Belleville', img: 'img/arandela-belleville.png' }
-      ]
+
+    resetFilters() {
+      this.searchTerm = '';
+      this.selectedCategory = 'all';
+      this.sortBy = 'name-asc';
+      this.filterProducts();
+    },
+
+    getCategoryName(categoryId) {
+      const category = this.categories.find(c => c.id === categoryId);
+      return category ? category.name : '';
     }
   };
-
-  const datos = catalogo[tipo];
-
-  // Cambiar datos principales
-  img.src = datos.img;
-  img.alt = datos.nombre;
-  nombre.textContent = datos.nombre;
-
-  // Limpiar modelos previos
-  modelosContainer.innerHTML = '';
-
-  // Crear tarjetas con animación
-  datos.modelos.forEach((modelo, index) => {
-    const card = document.createElement('div');
-    card.className = 'bg-gray-100 rounded-lg shadow-md p-4 flex flex-col items-center transition transform hover:scale-105 hover:shadow-xl cursor-pointer opacity-0 translate-y-4';
-    card.style.transition = `all 0.3s ease ${index * 0.05}s`;
-
-    if (modelo.img && modelo.img !== 'none') {
-      const modeloImg = document.createElement('img');
-      modeloImg.src = modelo.img;
-      modeloImg.alt = modelo.nombre;
-      modeloImg.className = 'w-24 h-24 object-contain mb-3';
-      card.appendChild(modeloImg);
-    }
-
-    const modeloNombre = document.createElement('p');
-    modeloNombre.textContent = modelo.nombre;
-    modeloNombre.className = 'text-center font-medium';
-    card.appendChild(modeloNombre);
-
-    modelosContainer.appendChild(card);
-
-    // Animación de entrada
-    setTimeout(() => {
-      card.classList.remove('opacity-0', 'translate-y-4');
-    }, 50);
-  });
-
-  // Mostrar contenedor con fade-in
-  producto.classList.remove('hidden', 'show');
-  setTimeout(() => producto.classList.add('show'), 50);
 }
