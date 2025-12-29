@@ -34,6 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Lo sentimos, hubo un error al enviar el mensaje. Inténtalo de nuevo más tarde.";
     }
 } else {
-    header("Location: https://bttduran.com/");
+    header("Location: ../index.html");
 }
 ?>
