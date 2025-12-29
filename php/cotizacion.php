@@ -1,39 +1,58 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // 1. Destinatario (Tu correo)
-    $destinatario = "cotizacion@bttduran.com";
-    
-    // 2. Recolección de datos del formulario
-    $nombre = strip_tags(trim($_POST["nombre"]));
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $telefono = strip_tags(trim($_POST["telefono"]));
-    $mensaje = strip_tags(trim($_POST["mensaje"]));
+header('Content-Type: application/json');
 
-    // 3. Asunto del correo
-    $asunto = "Nueva Cotizacion de: $nombre";
-
-    // 4. Contenido del correo (Cuerpo)
-    $contenido = "Has recibido una nueva solicitud de cotizacion desde tu sitio web.\n\n";
-    $contenido .= "Detalles:\n";
-    $contenido .= "Nombre: $nombre\n";
-    $contenido .= "Email: $email\n";
-    $contenido .= "Telefono: $telefono\n";
-    $contenido .= "Mensaje:\n$mensaje\n";
-
-    // 5. Encabezados (Importante para que no llegue a SPAM)
-    // Usamos el mismo dominio para el 'From' para que el servidor de Neubox lo acepte
-    $headers = "From: Web BTT Duran <no-reply@bttduran.com>\r\n";
-    $headers .= "Reply-To: $email\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion();
-
-    // 6. Enviar el correo
-    if (mail($destinatario, $asunto, $contenido, $headers)) {
-        // Redirigir de vuelta o mostrar mensaje de éxito
-        echo "<script>alert('Tu mensaje ha sido enviado con éxito. Pronto nos pondremos en contacto contigo.'); window.location.href='index.html';</script>";
-    } else {
-        echo "Lo sentimos, hubo un error al enviar el mensaje. Inténtalo de nuevo más tarde.";
-    }
-} else {
-    header("Location: ../index.html");
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  echo json_encode(['status'=>'error']);
+  exit;
 }
-?>
+
+/* Anti-spam honeypot */
+if (!empty($_POST['empresa'])) {
+  exit;
+}
+
+/* Sanitización */
+$nombre   = trim(strip_tags($_POST['nombre'] ?? ''));
+$email    = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
+$telefono = trim(strip_tags($_POST['telefono'] ?? ''));
+$mensaje  = trim(strip_tags($_POST['mensaje'] ?? ''));
+
+if (!$nombre || !$email || !$mensaje) {
+  echo json_encode([
+    'status'=>'error',
+    'title'=>'Datos incompletos',
+    'message'=>'Por favor completa todos los campos obligatorios.'
+  ]);
+  exit;
+}
+
+$destinatario = 'cotizacion@bttduran.com';
+$asunto = "Nueva Cotización - $nombre";
+
+$cuerpo = "
+Nueva solicitud desde bttduran.com
+
+Nombre: $nombre
+Email: $email
+Teléfono: $telefono
+
+Mensaje:
+$mensaje
+";
+
+$headers = "From: Web BTT Durán <no-reply@bttduran.com>\r\n";
+$headers .= "Reply-To: $email\r\n";
+
+if (mail($destinatario, $asunto, $cuerpo, $headers)) {
+  echo json_encode([
+    'status'=>'ok',
+    'title'=>'Mensaje enviado',
+    'message'=>'Gracias por contactarnos. Te responderemos pronto.'
+  ]);
+} else {
+  echo json_encode([
+    'status'=>'error',
+    'title'=>'Error',
+    'message'=>'No se pudo enviar el mensaje.'
+  ]);
+}
