@@ -40,7 +40,7 @@ Mensaje:
 $mensaje
 ";
 
-$headers = "From: Web BTT Durán <no-reply@bttduran.com>\r\n";
+$headers = "From: Web BTT Duran <no-reply@bttduran.com>\r\n";
 $headers .= "Reply-To: $email\r\n";
 
 if (mail($destinatario, $asunto, $cuerpo, $headers)) {

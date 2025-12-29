@@ -570,17 +570,6 @@
           </form>
         </div>
     </div>
-    <div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-      <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl">
-        <div id="modalIcon" class="text-5xl mb-4"></div>
-        <h3 id="modalTitle" class="text-2xl font-bold mb-2"></h3>
-        <p id="modalText" class="text-gray-600 mb-6"></p>
-        <button onclick="closeModal()"
-          class="px-6 py-3 bg-blue-900 text-white rounded-xl hover:bg-blue-800">
-          Cerrar
-        </button>
-      </div>
-    </div>
   </section>
 
   <!-- Footer -->
@@ -629,75 +618,20 @@
     </div>
   </footer>
 
-  <script>
-    // Inicializar AOS
-    AOS.init({
-      duration: 1000,
-      once: true,
-      offset: 100
-    });
-    
-    // Manejar el scroll para el header
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      if (window.scrollY > 0) {
-        header.classList.add('shadow-lg');
-      } else {
-        header.classList.remove('shadow-lg');
-      }
-    });
-    const form = document.getElementById('cotizacionForm');
-    const modal = document.getElementById('modal');
-    const loader = document.getElementById('loader');
-    const btnText = document.getElementById('btnText');
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/main.js"></script>
 
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-
-      loader.classList.remove('hidden');
-      btnText.textContent = 'Enviando...';
-
-      const data = new FormData(form);
-
-      try {
-        const res = await fetch('/php/cotizacion.php', {
-          method: 'POST',
-          body: data
-        });
-
-        const result = await res.json();
-
-        showModal(
-          result.status === 'ok',
-          result.title,
-          result.message
-        );
-
-        if (result.status === 'ok') form.reset();
-
-      } catch {
-        showModal(false, 'Error', 'No se pudo enviar el mensaje.');
-      }
-
-      loader.classList.add('hidden');
-      btnText.textContent = 'Enviar mensaje';
-    });
-
-    function showModal(success, title, message) {
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-
-      document.getElementById('modalIcon').innerHTML =
-        success ? '✅' : '❌';
-
-      document.getElementById('modalTitle').textContent = title;
-      document.getElementById('modalText').textContent = message;
-    }
-
-    function closeModal() {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-  </script>
+    <div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+      <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl relative">
+        <button onclick="closeModal()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+        <div id="modalIcon" class="text-5xl mb-4"></div>
+        <h3 id="modalTitle" class="text-2xl font-bold mb-2"></h3>
+        <p id="modalText" class="text-gray-600 mb-6"></p>
+        <button onclick="closeModal()"
+          class="px-6 py-3 bg-blue-900 text-white rounded-xl hover:bg-blue-800">
+          Cerrar
+        </button>
+      </div>
+    </div>
 </body>
 </html>
