@@ -10,14 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mensaje = strip_tags(trim($_POST["mensaje"]));
 
     // 3. Asunto del correo
-    $asunto = "Nueva Cotización de: $nombre";
+    $asunto = "Nueva Cotizacion de: $nombre";
 
     // 4. Contenido del correo (Cuerpo)
-    $contenido = "Has recibido una nueva solicitud de cotización desde tu sitio web.\n\n";
+    $contenido = "Has recibido una nueva solicitud de cotizacion desde tu sitio web.\n\n";
     $contenido .= "Detalles:\n";
     $contenido .= "Nombre: $nombre\n";
     $contenido .= "Email: $email\n";
-    $contenido .= "Teléfono: $telefono\n";
+    $contenido .= "Telefono: $telefono\n";
     $contenido .= "Mensaje:\n$mensaje\n";
 
     // 5. Encabezados (Importante para que no llegue a SPAM)
@@ -34,6 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Lo sentimos, hubo un error al enviar el mensaje. Inténtalo de nuevo más tarde.";
     }
 } else {
-    header("Location: ../index.html");
+    header("Location: https://bttduran.com/");
 }
 ?>
