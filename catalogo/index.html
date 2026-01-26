@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Hierárquico - Birlos, Tuercas y Tornillos Durán</title>
+    <link rel="icon" type="image/png" href="../img/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script src="js/products_data.js"></script>
+    <script src="js/csv-parser.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { 'sans': ['Montserrat', 'sans-serif'] } } } }
+    </script>
+</head>
+
+<body class="bg-gray-50 pb-12" x-data="catalog" x-cloak>
+
+    <!-- Header -->
+    <header
+        class="fixed w-full z-50 bg-slate-900/95 backdrop-blur-sm shadow-md border-b border-slate-800 h-20 flex items-center transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 w-full flex justify-between items-center">
+            <a href="../index.html" class="flex-shrink-0 hover:opacity-80 transition-opacity">
+                <img src="../img/logo.png" alt="Logo" class="h-12 w-auto drop-shadow-sm">
+            </a>
+
+            <div class="flex items-center gap-6">
+                <!-- Cart Button -->
+                <button @click="cartOpen = true"
+                    class="relative group p-3 rounded-full hover:bg-white/10 transition-colors duration-300">
+                    <i class="fas fa-shopping-cart text-2xl text-white group-hover:text-blue-200 transition-colors"></i>
+                    <span x-show="quoteList.length > 0" x-transition.scale
+                        class="absolute top-1 right-0 bg-yellow-500 text-slate-900 text-[10px] font-extrabold rounded-full w-5 h-5 flex items-center justify-center shadow-md border-2 border-slate-900"
+                        x-text="quoteList.length"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search & Breadcrumbs -->
+    <div class="pt-32 pb-8 px-4 max-w-7xl mx-auto">
+        <!-- Search Hero -->
+        <div class="max-w-3xl mx-auto mb-12 relative animate-fade-in-up">
+            <div class="relative group">
+                <div
+                    class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500">
+                </div>
+                <div class="relative bg-white rounded-2xl shadow-xl flex items-center p-2 border border-gray-100">
+                    <i
+                        class="fas fa-search ml-4 text-gray-400 text-xl group-focus-within:text-blue-600 transition-colors"></i>
+                    <input type="text" x-model="searchQuery" @input="performSearch()"
+                        placeholder="Busca tu producto (ej. Socket, Hexagonal, Pija...)"
+                        class="w-full pl-4 pr-4 py-3 rounded-xl border-none focus:ring-0 text-gray-700 placeholder-gray-400 text-lg font-medium bg-transparent">
+                </div>
+            </div>
+        </div>
+
+        <!-- Breadcrumbs -->
+        <nav
+            class="flex items-center gap-3 text-sm font-medium text-gray-500 overflow-x-auto whitespace-nowrap pb-4 no-scrollbar animate-fade-in-up delay-100">
+            <button @click="view = 'families'; currentFamily = null; currentSubfamily = null"
+                class="px-3 py-1 rounded-full hover:bg-gray-100 hover:text-blue-900 transition-colors"
+                :class="view === 'families' ? 'text-blue-900 bg-blue-50 font-bold' : ''">
+                <i class="fas fa-home mr-1"></i> Catálogo
+            </button>
+
+            <template x-if="currentFamily">
+                <div class="flex items-center gap-2 animate-fade-in-up">
+                    <i class="fas fa-chevron-right text-xs opacity-40"></i>
+                    <button @click="view = 'subfamilies'; currentSubfamily = null"
+                        class="px-3 py-1 rounded-full hover:bg-gray-100 hover:text-blue-900 transition-colors"
+                        x-text="currentFamily.name"></button>
+                </div>
+            </template>
+
+            <template x-if="currentSubfamily">
+                <div class="flex items-center gap-2 animate-fade-in-up">
+                    <i class="fas fa-chevron-right text-xs opacity-40"></i>
+                    <span class="px-3 py-1 rounded-full bg-blue-900 text-white shadow-md font-bold"
+                        x-text="currentSubfamily.name"></span>
+                </div>
+            </template>
+
+            <template x-if="view === 'search'">
+                <div class="flex items-center gap-2 animate-fade-in-up">
+                    <i class="fas fa-chevron-right text-xs opacity-40"></i>
+                    <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-900 border border-gray-200">
+                        Búsqueda: "<span class="font-bold italic" x-text="searchQuery"></span>"
+                    </span>
+                </div>
+            </template>
+        </nav>
+    </div>
+
+    <!-- Loading -->
+    <div x-show="isLoading" class="flex flex-col items-center justify-center py-24 animate-pulse">
+        <div class="w-16 h-16 border-4 border-blue-100 border-t-blue-900 rounded-full animate-spin mb-4"></div>
+        <p class="text-gray-400 font-medium tracking-wide text-sm">CARGANDO CATÁLOGO...</p>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 pb-20" x-show="!isLoading">
+
+        <!-- View 1: Families -->
+        <section x-show="view === 'families'" class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <template x-for="(family, index) in rawCatalog.families" :key="family.id">
+                <button @click="selectFamily(family)"
+                    class="hover-card-effect bg-white p-6 rounded-3xl shadow-sm border border-gray-100 group flex flex-col items-center text-center relative overflow-hidden animate-fade-in-up"
+                    :style="`animation-delay: ${index * 50}ms`">
+
+                    <div class="absolute inset-0 bg-gradient-to-br from-white to-gray-50 opacity-50 z-0"></div>
+
+                    <div
+                        class="relative z-10 w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-inner group-hover:shadow-lg group-hover:scale-110">
+                        <i :class="getFamilyIcon(family.id)" class="text-3xl transition-transform duration-300"></i>
+                    </div>
+
+                    <h3 class="relative z-10 font-bold text-slate-800 text-lg group-hover:text-blue-700 transition-colors"
+                        x-text="family.name"></h3>
+                    <div
+                        class="relative z-10 mt-2 px-3 py-1 bg-gray-100 rounded-full text-[10px] font-bold text-gray-500 uppercase tracking-widest group-hover:bg-white group-hover:shadow-sm transition-all">
+                        <span x-text="family.subfamilies.length"></span> Categorías
+                    </div>
+                </button>
+            </template>
+        </section>
+
+        <!-- View 2: Subfamilies -->
+        <section x-show="view === 'subfamilies'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="(sub, index) in currentFamily?.subfamilies" :key="sub.id">
+                <button @click="selectSubfamily(sub)"
+                    class="hover-card-effect bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-5 hover:border-blue-200 transition-all animate-fade-in-up"
+                    :style="`animation-delay: ${index * 50}ms`">
+                    <div
+                        class="w-16 h-16 bg-white border border-gray-100 rounded-xl flex items-center justify-center flex-shrink-0 p-2 shadow-sm">
+                        <img :src="getImage(sub.name)"
+                            class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="text-left">
+                        <h4 class="font-bold text-slate-800 text-lg leading-tight group-hover:text-blue-600 transition-colors"
+                            x-text="sub.name"></h4>
+                        <p class="text-xs text-gray-400 font-medium mt-1 flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                            <span x-text="sub.products.length + ' Tipos disponibles'"></span>
+                        </p>
+                    </div>
+                    <i class="fas fa-arrow-right ml-auto text-gray-300 group-hover:text-blue-500 transition-colors"></i>
+                </button>
+            </template>
+        </section>
+
+        <!-- View 3: Products -->
+        <section x-show="view === 'products'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="(prod, index) in currentSubfamily?.products" :key="prod.name">
+                <div @click="openProduct(prod)"
+                    class="hover-card-effect bg-white rounded-2xl border border-gray-100 p-6 flex flex-col gap-4 cursor-pointer group animate-fade-in-up"
+                    :style="`animation-delay: ${index * 30}ms`">
+                    <div
+                        class="w-full h-40 bg-gray-50 rounded-xl p-4 flex items-center justify-center mb-2 group-hover:bg-blue-50/50 transition-colors">
+                        <img :src="getImage(prod.name)"
+                            class="w-full h-full object-contain filter drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-blue-700 transition-colors"
+                            x-text="prod.name"></h4>
+                        <div class="flex items-center justify-between mt-3">
+                            <span
+                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                <span x-text="prod.measurements.length"></span> Medidas
+                            </span>
+                            <span
+                                class="text-blue-600 text-sm font-semibold group-hover:translate-x-1 transition-transform">Ver
+                                más <i class="fas fa-chevron-right text-xs ml-1"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </section>
+
+        <!-- View 4: Search Results -->
+        <section x-show="view === 'search'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="prod in searchResults" :key="prod.name">
+                <div @click="openProduct(prod)"
+                    class="hover-card-effect bg-white rounded-2xl p-4 flex items-center gap-4 shadow-sm border border-gray-100 cursor-pointer group animate-fade-in-up">
+                    <div class="w-16 h-16 bg-gray-50 rounded-lg p-2 flex-shrink-0">
+                        <img :src="getImage(prod.name)" class="w-full h-full object-contain">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-slate-800 text-sm truncate" x-text="prod.name"></h4>
+                        <p class="text-xs text-blue-600 font-medium mt-1"
+                            x-text="prod.measurements.length + ' variantes'"></p>
+                    </div>
+                </div>
+            </template>
+        </section>
+
+    </main>
+
+    <!-- Modal -->
+    <div x-show="modalOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div x-show="modalOpen" x-transition.opacity.duration.300ms @click="closeModal()"
+            class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div
+            class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl relative z-10 flex flex-col max-h-[85vh] overflow-hidden animate-fade-in-up">
+            <div
+                class="p-6 border-b border-gray-100 flex justify-between items-center bg-white/90 backdrop-blur-md sticky top-0 z-20">
+                <h3 class="text-2xl font-extrabold text-blue-900 truncate pr-4" x-text="activeProduct?.name"></h3>
+                <button @click="closeModal()"
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-red-50 hover:text-red-500 transition-colors"><i
+                        class="fas fa-times text-lg"></i></button>
+            </div>
+
+            <div class="p-8 overflow-y-auto overflow-x-hidden custom-scrollbar bg-white">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 rounded-3xl p-8 flex items-center justify-center aspect-square shadow-inner">
+                        <img :src="getImage(activeProduct?.name)"
+                            class="w-full h-full object-contain filter drop-shadow-lg transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-400 mb-6 uppercase tracking-widest text-xs border-b pb-2">Medidas
+                            Disponibles</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            <template x-for="m in activeProduct?.measurements" :key="m.id">
+                                <button @click="toggleMeasurement(m.label)"
+                                    class="relative overflow-hidden p-3 border rounded-xl text-xs font-bold transition-all text-center break-words group"
+                                    :class="selectedMeasurements.includes(m.label) 
+                                        ? 'bg-blue-900 text-white border-blue-900 shadow-md transform scale-105' 
+                                        : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:shadow-sm'">
+                                    <span class="relative z-10" x-text="m.label"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-gray-100 bg-gray-50/50 backdrop-blur-sm flex justify-end gap-4">
+                <button @click="addToQuote()" :disabled="selectedMeasurements.length === 0"
+                    class="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-blue-900 to-blue-800 text-white rounded-xl font-bold shadow-lg hover:shadow-blue-900/30 hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
+                    <i class="fas fa-plus-circle text-lg"></i>
+                    <span>Añadir a mi lista</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div x-show="cartOpen" class="fixed inset-0 z-[200]">
+        <div x-show="cartOpen" x-transition.opacity @click="cartOpen = false"
+            class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div x-show="cartOpen" x-transition:enter="transition ease-out duration-300 transform"
+            x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+            x-transition:leave="transition ease-in duration-300 transform" x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="translate-x-full"
+            class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col rounded-l-3xl overflow-hidden border-l border-white/20">
+
+            <div
+                class="p-6 border-b border-gray-100 flex justify-between items-center bg-white/90 backdrop-blur-md z-10 shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="bg-blue-50 p-2 rounded-lg text-blue-900">
+                        <i class="fas fa-clipboard-list text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-slate-800">Mi Cotización</h3>
+                </div>
+                <button @click="cartOpen = false"
+                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 custom-scrollbar bg-gray-50/50">
+                <template x-if="quoteList.length === 0">
+                    <div class="h-full flex flex-col items-center justify-center text-center p-8 opacity-60">
+                        <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                            <i class="fas fa-shopping-basket text-4xl text-gray-300"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">Tu lista está vacía</h4>
+                        <p class="text-sm text-gray-500 max-w-xs">Explora el catálogo y selecciona las medidas que
+                            necesitas para armar tu pedido.</p>
+                        <button @click="cartOpen = false"
+                            class="mt-6 px-6 py-2 bg-white border border-gray-300 rounded-full text-sm font-bold text-gray-600 hover:border-blue-500 hover:text-blue-600 transition-colors">
+                            Volver al catálogo
+                        </button>
+                    </div>
+                </template>
+
+                <div class="space-y-3">
+                    <template x-for="(item, idx) in quoteList" :key="idx">
+                        <div
+                            class="group flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all animate-fade-in-up">
+                            <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <img :src="getImage(item.name)" class="w-8 h-8 object-contain">
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h5 class="text-sm font-bold text-slate-800 leading-tight mb-1 truncate"
+                                    x-text="item.name"></h5>
+                                <div class="inline-block px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded-md border border-blue-100"
+                                    x-text="item.measure"></div>
+                            </div>
+                            <button @click="removeFromQuote(idx)"
+                                class="w-8 h-8 flex items-center justify-center rounded-full text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100">
+                                <i class="fas fa-trash-alt text-sm"></i>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-gray-100 bg-white shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)] z-20">
+                <div class="flex justify-between items-center mb-4 text-sm font-medium text-gray-500">
+                    <span>Total de artículos:</span>
+                    <span class="text-slate-900 font-bold text-lg" x-text="quoteList.length"></span>
+                </div>
+                <button @click="sendWhatsApp()" :disabled="quoteList.length === 0"
+                    class="w-full py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-2xl font-extrabold shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed">
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    <span>SOLICITAR COTIZACIÓN</span>
+                </button>
+                <p class="text-center text-[10px] text-gray-400 mt-3 font-medium">Se abrirá WhatsApp con el detalle de
+                    tu pedido</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
