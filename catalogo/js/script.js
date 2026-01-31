@@ -12,6 +12,7 @@ document.addEventListener('alpine:init', () => {
         // UI State
         isLoading: true,
         modalOpen: false,
+        showQuotePreview: false, // Nuevo estado para el modal de cotización
         activeProduct: null,
         selectedMeasurements: [],
 
@@ -27,6 +28,17 @@ document.addEventListener('alpine:init', () => {
             // Load cart
             const savedCart = localStorage.getItem('btt_quote_list');
             if (savedCart) this.quoteList = JSON.parse(savedCart);
+
+            // Check URL parameters for search
+            const urlParams = new URLSearchParams(window.location.search);
+            const q = urlParams.get('q');
+            if (q) {
+                this.searchQuery = decodeURIComponent(q);
+                // Force search view even if short query, or rely on performSearch
+                if (this.searchQuery.length > 0) {
+                    this.view = 'search';
+                }
+            }
         },
 
         // Navigation Methods
@@ -110,6 +122,7 @@ document.addEventListener('alpine:init', () => {
             });
             localStorage.setItem('btt_quote_list', JSON.stringify(this.quoteList));
             this.closeModal();
+            // Optional: Open cart or show toast
         },
 
         removeFromQuote(index) {
@@ -117,10 +130,26 @@ document.addEventListener('alpine:init', () => {
             localStorage.setItem('btt_quote_list', JSON.stringify(this.quoteList));
         },
 
+        openPreview() {
+            this.cartOpen = false;
+            this.showQuotePreview = true;
+        },
+
         sendWhatsApp() {
-            let msg = "Hola, me gustaría cotizar:\n\n";
+            let msg = "Hola, me gustaría cotizar los siguientes productos:\n\n";
             this.quoteList.forEach(i => msg += `- ${i.name} [${i.measure}]\n`);
             window.open(`https://wa.me/526566242220?text=${encodeURIComponent(msg)}`, '_blank');
+        },
+
+        sendEmail() {
+            const subject = "Solicitud de Cotización - Web";
+            let body = "Hola, me gustaría cotizar los siguientes productos:\n\n";
+            this.quoteList.forEach(i => body += `- ${i.name} [${i.measure}]\n`);
+            body += "\nGracias.";
+
+            // Usar ventas@birlostuercasytornillos.com (ejemplo) o dejar vacío para que el usuario ponga el destinatario si no se conoce
+            const email = "ventas@birlostuercasytornillos.com";
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         },
 
         // Image Mapping

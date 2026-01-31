@@ -3,6 +3,13 @@
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Analytics Placeholder
+  window.trackEvent = function (category, action, label = null) {
+    console.log(`[Analytics] ${category} - ${action} ${label ? '(' + label + ')' : ''}`);
+    // Aquí iría el código de Google Analytics / Facebook Pixel
+    // gtag('event', action, { 'event_category': category, 'event_label': label });
+  };
+
   /* ===============================
      AOS
   =============================== */
@@ -117,3 +124,16 @@ function closeModal() {
   modal.classList.add('hidden');
   modal.classList.remove('flex');
 }
+
+/* ===============================
+   Preloader
+=============================== */
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    preloader.classList.add('opacity-0');
+    setTimeout(() => {
+      preloader.style.display = 'none';
+    }, 500);
+  }
+});

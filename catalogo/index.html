@@ -248,7 +248,76 @@
         </div>
     </div>
 
-    <!-- Cart Drawer -->
+    <!-- Modal Cotización Preview -->
+    <div x-show="showQuotePreview" class="fixed inset-0 z-[250] flex items-center justify-center p-4">
+        <div x-show="showQuotePreview" x-transition.opacity @click="showQuotePreview = false"
+            class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"></div>
+        <div
+            class="bg-white w-full max-w-2xl rounded-xl shadow-2xl relative z-10 flex flex-col max-h-[90vh] overflow-hidden animate-fade-in-up">
+
+            <!-- Encabezado Estilo Cotización -->
+            <div
+                class="p-8 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50">
+                <div class="flex flex-col">
+                    <img src="../img/logo.png" alt="Logo" class="h-12 w-auto mb-2 object-contain self-start">
+                    <p class="text-xs text-gray-500 font-medium">Birlos, Tuercas y Tornillos Durán</p>
+                    <p class="text-xs text-gray-400">Av. De las Torres, Ciudad Juárez, Chih.</p>
+                </div>
+                <div class="text-right">
+                    <h3 class="text-xl font-extrabold text-blue-900 uppercase">Cotización</h3>
+                    <p class="text-xs text-gray-500">Fecha: <span x-text="new Date().toLocaleDateString()"></span></p>
+                </div>
+            </div>
+
+            <!-- Lista de Artículos -->
+            <div class="flex-1 overflow-y-auto p-8 custom-scrollbar bg-white">
+                <table class="w-full text-sm text-left">
+                    <thead class="text-xs text-gray-400 uppercase bg-gray-50/50 border-b border-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 font-semibold w-20 text-center">Cant.</th>
+                            <th class="px-4 py-3 font-semibold">Producto</th>
+                            <th class="px-4 py-3 font-semibold text-right">Medida</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                        <template x-for="item in quoteList" :key="item.name + item.measure">
+                            <tr class="hover:bg-blue-50/30 transition-colors">
+                                <td class="px-4 py-3">
+                                    <input type="number" min="1" x-model="item.quantity"
+                                        class="w-16 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-bold text-blue-900 bg-gray-50 focus:bg-white transition-all">
+                                </td>
+                                <td class="px-4 py-3 font-medium text-slate-700 align-middle" x-text="item.name"></td>
+                                <td class="px-4 py-3 text-right text-slate-500 font-mono align-middle"
+                                    x-text="item.measure"></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                <div class="mt-8 border-t border-gray-100 pt-4 text-center">
+                    <p class="text-sm text-gray-500 italic">Gracias por su preferencia.</p>
+                </div>
+            </div>
+
+            <!-- Acciones -->
+            <div
+                class="p-6 border-t border-gray-100 bg-gray-50 flex flex-col sm:flex-row gap-3 justify-end items-center">
+                <button @click="showQuotePreview = false"
+                    class="w-full sm:w-auto px-6 py-3 text-gray-500 font-bold hover:text-gray-700 hover:bg-gray-200 rounded-xl transition-colors">
+                    Seguir Editando
+                </button>
+                <button @click="sendEmail()"
+                    class="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-2">
+                    <i class="fas fa-envelope"></i>
+                    <span>Enviar por Correo</span>
+                </button>
+                <button @click="sendWhatsApp()"
+                    class="w-full sm:w-auto px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-500/30 transition-all flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                    <span>Enviar por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
     <div x-show="cartOpen" class="fixed inset-0 z-[200]">
         <div x-show="cartOpen" x-transition.opacity @click="cartOpen = false"
             class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
@@ -315,13 +384,13 @@
                     <span>Total de artículos:</span>
                     <span class="text-slate-900 font-bold text-lg" x-text="quoteList.length"></span>
                 </div>
-                <button @click="sendWhatsApp()" :disabled="quoteList.length === 0"
-                    class="w-full py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-2xl font-extrabold shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed">
-                    <i class="fab fa-whatsapp text-2xl"></i>
-                    <span>SOLICITAR COTIZACIÓN</span>
+                <button @click="openPreview()" :disabled="quoteList.length === 0"
+                    class="w-full py-4 bg-gradient-to-r from-blue-900 to-blue-800 text-white rounded-2xl font-extrabold shadow-lg hover:shadow-blue-900/50 hover:-translate-y-1 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed">
+                    <i class="fas fa-file-invoice text-2xl"></i>
+                    <span>VER VISTA PREVIA</span>
                 </button>
-                <p class="text-center text-[10px] text-gray-400 mt-3 font-medium">Se abrirá WhatsApp con el detalle de
-                    tu pedido</p>
+                <p class="text-center text-[10px] text-gray-400 mt-3 font-medium">Revisa tu lista antes de elegir cómo
+                    enviarla</p>
             </div>
         </div>
     </div>
